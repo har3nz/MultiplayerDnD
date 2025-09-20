@@ -41,7 +41,7 @@ offset_top = 27.445
 offset_right = 434.5
 offset_bottom = 90.4451
 theme_override_font_sizes/font_size = 45
-text = "1/5"
+text = "0/5"
 
 [node name="ready" type="Button" parent="."]
 layout_mode = 0
@@ -80,7 +80,6 @@ offset_bottom = 380.0
 [node name="Player" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
-text = "Player1"
 
 [node name="Player2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -102,3 +101,4 @@ theme_override_font_sizes/font_size = 35
 replication_config = SubResource("SceneReplicationConfig_r4be7")
 
 [connection signal="pressed" from="ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
