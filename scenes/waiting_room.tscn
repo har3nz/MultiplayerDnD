@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://sug35qkwhnu4"]
+
+[ext_resource type="Script" uid="uid://pnj0itl2ta07" path="res://scripts/waiting_room.gd" id="1_0q7jc"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_r4be7"]
+properties/0/path = NodePath("ready:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("VBoxContainer/Player:text")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("VBoxContainer/Player2:text")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("VBoxContainer/Player3:text")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("VBoxContainer/Player4:text")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("VBoxContainer/Player5:text")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("plr_count:text")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[node name="waiting_room" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0q7jc")
+
+[node name="plr_count" type="Label" parent="."]
+layout_mode = 0
+offset_left = 365.5
+offset_top = 27.445
+offset_right = 434.5
+offset_bottom = 90.4451
+theme_override_font_sizes/font_size = 45
+text = "1/5"
+
+[node name="ready" type="Button" parent="."]
+layout_mode = 0
+offset_left = 316.0
+offset_top = 405.835
+offset_right = 484.0
+offset_bottom = 476.83517
+theme_override_font_sizes/font_size = 45
+text = "Ready"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 408.0
+offset_right = 678.0
+offset_bottom = 479.00018
+theme_override_font_sizes/font_size = 45
+text = "Start"
+
+[node name="ready_count" type="Label" parent="."]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 410.0
+offset_right = 300.0
+offset_bottom = 473.0001
+theme_override_font_sizes/font_size = 45
+text = "Ready : 0/5"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 113.0
+offset_right = 543.0
+offset_bottom = 380.0
+
+[node name="Player" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Player1"
+
+[node name="Player2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+
+[node name="Player3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+
+[node name="Player4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+
+[node name="Player5" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_r4be7")
+
+[connection signal="pressed" from="ready" to="." method="_on_ready_pressed"]
