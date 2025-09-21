@@ -1,8 +1,6 @@
 extends MultiplayerSpawner
 
-@export var network_player: PackedScene = preload("res://scenes/character_player.tscn")
-
-
+@export var network_player: PackedScene = preload("res://scenes/player.tscn")
 
 func spawn_player(id: int) -> void:
 	if !multiplayer.is_server(): return
@@ -11,4 +9,4 @@ func spawn_player(id: int) -> void:
 	player.name = str(id)
 	
 
-	get_tree().call_deferred("add_child", player)
+	get_tree().get_root().call_deferred("add_child", player)

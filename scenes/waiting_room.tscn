@@ -1,29 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://sug35qkwhnu4"]
+[gd_scene load_steps=2 format=3 uid="uid://sug35qkwhnu4"]
 
 [ext_resource type="Script" uid="uid://pnj0itl2ta07" path="res://scripts/waiting_room.gd" id="1_0q7jc"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_r4be7"]
-properties/0/path = NodePath("ready:text")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("VBoxContainer/Player:text")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("VBoxContainer/Player2:text")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("VBoxContainer/Player3:text")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("VBoxContainer/Player4:text")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("VBoxContainer/Player5:text")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath("plr_count:text")
-properties/6/spawn = true
-properties/6/replication_mode = 1
 
 [node name="waiting_room" type="Control"]
 layout_mode = 3
@@ -43,32 +20,14 @@ offset_bottom = 90.4451
 theme_override_font_sizes/font_size = 45
 text = "0/5"
 
-[node name="ready" type="Button" parent="."]
-layout_mode = 0
-offset_left = 316.0
-offset_top = 405.835
-offset_right = 484.0
-offset_bottom = 476.83517
-theme_override_font_sizes/font_size = 45
-text = "Ready"
-
 [node name="Start" type="Button" parent="."]
 layout_mode = 0
-offset_left = 510.0
-offset_top = 408.0
-offset_right = 678.0
-offset_bottom = 479.00018
+offset_left = 316.0
+offset_top = 405.0
+offset_right = 484.0
+offset_bottom = 476.00018
 theme_override_font_sizes/font_size = 45
 text = "Start"
-
-[node name="ready_count" type="Label" parent="."]
-layout_mode = 0
-offset_left = 62.0
-offset_top = 410.0
-offset_right = 300.0
-offset_bottom = 473.0001
-theme_override_font_sizes/font_size = 45
-text = "Ready : 0/5"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -97,8 +56,36 @@ theme_override_font_sizes/font_size = 35
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_r4be7")
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 123.0
+offset_bottom = 211.0
 
-[connection signal="pressed" from="ready" to="." method="_on_ready_pressed"]
+[node name="wizard" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Wizard"
+
+[node name="druid" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Druid
+"
+
+[node name="bard" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Bard"
+
+[node name="rogue" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Rogue"
+
+[node name="barbarian" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Barbarian
+"
+
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer2/wizard" to="." method="_on_wizard_pressed"]
+[connection signal="pressed" from="VBoxContainer2/druid" to="." method="_on_druid_pressed"]
+[connection signal="pressed" from="VBoxContainer2/bard" to="." method="_on_bard_pressed"]
+[connection signal="pressed" from="VBoxContainer2/rogue" to="." method="_on_rogue_pressed"]
+[connection signal="pressed" from="VBoxContainer2/barbarian" to="." method="_on_barbarian_pressed"]

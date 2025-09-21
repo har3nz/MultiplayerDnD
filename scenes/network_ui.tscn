@@ -11,15 +11,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rqm01")
 
-[node name="Server" type="Button" parent="."]
-layout_mode = 0
-offset_left = 282.0
-offset_top = 148.0
-offset_right = 479.0
-offset_bottom = 230.0
-theme_override_font_sizes/font_size = 45
-text = "Host"
-
 [node name="Client" type="Button" parent="."]
 layout_mode = 0
 offset_left = 286.0
@@ -29,5 +20,14 @@ offset_bottom = 352.0
 theme_override_font_sizes/font_size = 45
 text = "Join"
 
-[connection signal="pressed" from="Server" to="." method="_on_server_pressed"]
+[node name="Server" type="Button" parent="."]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 148.0
+offset_right = 479.0
+offset_bottom = 230.0
+theme_override_font_sizes/font_size = 45
+text = "Host"
+
 [connection signal="pressed" from="Client" to="." method="_on_client_pressed"]
+[connection signal="pressed" from="Server" to="." method="_on_server_pressed"]
