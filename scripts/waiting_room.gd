@@ -34,7 +34,7 @@ func _on_ready_pressed() -> void:
 	ready_count_int += 1
 	rpc("update_ready_count", ready_count_int)
 
-@rpc("any_peer", "call_remote", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func update_player_list(new_players: Array) -> void:
 	players = new_players
 	plr_count.text = "%d/5" % players.size()
@@ -49,7 +49,7 @@ func update_player_list(new_players: Array) -> void:
 	ready_count.text = "Ready : %d/%d" % [ready_count_int, players.size()]
 
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_remote", "reliable")
 func update_ready_count(new_value: int) -> void:
 	ready_count_int = new_value
 	ready_count.text = "Ready : %d/%d" % [ready_count_int, players.size()]
@@ -65,6 +65,6 @@ func _on_start_pressed() -> void:
 		var id = int(plr_name.replace("Player ", ""))
 		GlobalMultiplayerSpawner.init(id)
 	
-@rpc("any_peer", "call_remote", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func go_to_world_scene() -> void:
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
