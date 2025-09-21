@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 NetworkHandler="*res://scripts/network_handler.gd"
+GlobalMultiplayerSpawner="*res://scripts/multiplayer_spawner.gd"
 
 [display]
 

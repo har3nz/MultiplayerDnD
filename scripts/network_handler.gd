@@ -11,9 +11,7 @@ func start_server() -> void:
 	multiplayer.multiplayer_peer = peer
 
 func start_client() -> void:
-	IP_ADDRESS = "being-morris.gl.at.ply.gg"
-	PORT = 5235
 	peer = ENetMultiplayerPeer.new()
-	peer.create_client(IP_ADDRESS, PORT)
+	peer.create_client("cool-drinks.gl.at.ply.gg", 23706)
 	multiplayer.multiplayer_peer = peer
 	
