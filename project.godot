@@ -19,6 +19,9 @@ config/icon="res://icon.svg"
 
 NetworkHandler="*res://scripts/network_handler.gd"
 GlobalMultiplayerSpawner="*res://scripts/multiplayer_spawner.gd"
+GlobalMultiplayer="*res://scripts/global_multiplayer.gd"
+WaitingRoomScene="res://scenes/waiting_room.tscn"
+WaitingRoom="*res://scripts/waiting_room.gd"
 
 [display]
 

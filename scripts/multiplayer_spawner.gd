@@ -4,9 +4,6 @@ extends MultiplayerSpawner
 
 
 
-func init(id: int) -> void:
-	spawn_player(id)
-
 func spawn_player(id: int) -> void:
 	if !multiplayer.is_server(): return
 

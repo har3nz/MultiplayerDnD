@@ -6,16 +6,16 @@ extends Control
 @onready var start_button = $Start
 var player_labels: Array = []
 
-
 var players: Array = []
-var ready_count_int: int = 0
 
 func _ready() -> void:
 	if multiplayer.is_server():
 		start_button.show()
 	else:
 		start_button.hide()
-	multiplayer.peer_connected.connect(_on_peer_connected)
+
+	multiplayer.connect("peer_connected", Callable(self, "_on_peer_connected"))
+
 	player_labels = [
 		$VBoxContainer/Player,
 		$VBoxContainer/Player2,
@@ -28,11 +28,10 @@ func _on_peer_connected(id: int) -> void:
 	var plr_name = "Player " + str(id)
 	players.append(plr_name)
 	rpc("update_player_list", players)
-	rpc("update_ready_count", ready_count_int)
+	rpc("sync_ready_count")
 
 func _on_ready_pressed() -> void:
-	ready_count_int += 1
-	rpc("update_ready_count", ready_count_int)
+	rpc("increase_ready_count")
 
 @rpc("any_peer", "call_local", "reliable")
 func update_player_list(new_players: Array) -> void:
@@ -46,25 +45,16 @@ func update_player_list(new_players: Array) -> void:
 		else:
 			player_labels[i].visible = false
 
-	ready_count.text = "Ready : %d/%d" % [ready_count_int, players.size()]
+@rpc("authority", "call_remote", "reliable")
+func increase_ready_count() -> void:
+	var current = int(ready_count.text.split(":")[1].split("/")[0].strip())
+	current += 1
+	ready_count.text = "Ready : %d/%d" % [current, players.size()]
+	rpc("sync_ready_count", current)
 
-
-@rpc("any_peer", "call_remote", "reliable")
-func update_ready_count(new_value: int) -> void:
-	ready_count_int = new_value
-	ready_count.text = "Ready : %d/%d" % [ready_count_int, players.size()]
-
+@rpc("any_peer", "call_local", "reliable")
+func sync_ready_count(current_value: int) -> void:
+	ready_count.text = "Ready : %d/%d" % [current_value, players.size()]
 
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
-	rpc("go_to_world_scene")
-
-	GlobalMultiplayerSpawner.network_player = preload("res://scenes/character_player.tscn")
-
-	for plr_name in players:
-		var id = int(plr_name.replace("Player ", ""))
-		GlobalMultiplayerSpawner.init(id)
-	
-@rpc("any_peer", "call_local", "reliable")
-func go_to_world_scene() -> void:
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	GlobalMultiplayer.start_game()
