@@ -47,27 +47,17 @@ func _on_start_pressed() -> void:
 
 
 func _on_barbarian_pressed() -> void:
-	send_class_to_server.rpc("barbarian")
+	ClassHandler.rpc("assign_class", multiplayer.get_unique_id(), "barbarian")
 
 func _on_rogue_pressed() -> void:
-	send_class_to_server.rpc("rogue")
+	ClassHandler.rpc("assign_class", multiplayer.get_unique_id(), "rogue")
 
 func _on_bard_pressed() -> void:
-	send_class_to_server.rpc("bard")
+	ClassHandler.rpc("assign_class", multiplayer.get_unique_id(), "bard")
 
 func _on_druid_pressed() -> void:
-	send_class_to_server.rpc("druid")
+	ClassHandler.rpc("assign_class", multiplayer.get_unique_id(), "druid")
 
 func _on_wizard_pressed() -> void:
-	send_class_to_server.rpc("wizard")
+	ClassHandler.rpc("assign_class", multiplayer.get_unique_id(), "wizard")
 
-var player_data = {}
-
-@rpc("any_peer", "call_remote", "reliable")
-func send_class_to_server(_class_name: String):
-	if multiplayer.is_server():
-		var id = multiplayer.get_remote_sender_id()
-		multiplayer.set_peer_meta(id, "Class", _class_name)
-		for _id in multiplayer.get_peers():
-			var player_class = multiplayer.get_peer_meta(_id, "Class")
-			print("Player %d is %s" % [_id, str(player_class)])

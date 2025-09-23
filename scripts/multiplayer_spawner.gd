@@ -7,6 +7,5 @@ func spawn_player(id: int) -> void:
 
 	var player: Node = network_player.instantiate()
 	player.name = str(id)
-	
 
-	get_tree().get_root().call_deferred("add_child", player)
+	get_parent().call_deferred("add_child", player)
