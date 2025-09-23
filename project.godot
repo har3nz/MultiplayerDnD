@@ -27,7 +27,7 @@ ClassHandler="*res://scripts/class_handler.gd"
 window/size/viewport_width=800
 window/size/viewport_height=600
 window/size/resizable=false
-window/stretch/scale=0.5
+window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 
 [input]

@@ -10,7 +10,6 @@ var mouse_down: bool = false
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
-
 func spawn_fireball() -> void:
 	var fireball = fireball_scene.instantiate()
 	fireball.position = self.position
@@ -19,7 +18,8 @@ func spawn_fireball() -> void:
 	var angle = atan2(m_pos.y - self.position.y, m_pos.x - self.position.x)
 	fireball.set_dir(fdir)
 	fireball.rotation = angle + 1.57
-	get_parent().add_child(fireball)
+	#get_parent().add_child(fireball)
+	GlobalMultiplayerSpawner.rpc("sv_spawn_fireball", fireball)
 
 func spawn_mini_missile() -> void:
 	mini_missile = mini_missile_scene.instantiate()
@@ -27,10 +27,12 @@ func spawn_mini_missile() -> void:
 	var m_pos = get_viewport().get_mouse_position()
 	var mdir = m_pos - self.position
 	mini_missile.set_dir(mdir)
-	get_parent().add_child(mini_missile)
+	#get_parent().add_child(mini_missile)
+	GlobalMultiplayerSpawner.rpc("sv_spawn_magic_missile", mini_missile)
+	
 
 func _physics_process(_delta) -> void:
-	#if !is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 
 	velocity = Input.get_vector("left", "right", "up", "down") * SPEED
 
