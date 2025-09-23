@@ -46,10 +46,12 @@ func _physics_process(_delta) -> void:
 	
 	if Input.is_action_just_released("fire"):
 		mouse_down = false
+		var m_pos = get_viewport().get_mouse_position()
+		mini_missile.update_mouse(m_pos, mouse_down)
 
 	if mouse_down and mini_missile:
 		var m_pos = get_viewport().get_mouse_position()
-		mini_missile.update_mouse(m_pos)
+		mini_missile.update_mouse(m_pos, mouse_down)
 
 
 	move_and_slide()
