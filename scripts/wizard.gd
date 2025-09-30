@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
-const SPEED: int = 500
+const SPEED: int = 400
+
+var max_health: float = 50
+var health: float = max_health
 
 var fireball_scene = preload("res://scenes/fireball.tscn")
 var mini_missile_scene = preload("res://scenes/mini_missile.tscn")

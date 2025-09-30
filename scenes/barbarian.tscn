@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bge8vwy51igo8"]
+
+[ext_resource type="Script" uid="uid://0l5thbt5lnyb" path="res://scripts/barbarian.gd" id="1_omgms"]
+[ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_vce3p"]
+[ext_resource type="PackedScene" uid="uid://cvixtesfcwysl" path="res://scenes/axe.tscn" id="3_imun0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_omgms"]
+radius = 31.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_omgms"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("Sprite2D:scale")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("Axe:position")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[node name="barbarian" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_omgms")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_vce3p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_omgms")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.06
+delta_interval = 0.008
+replication_config = SubResource("SceneReplicationConfig_omgms")
+
+[node name="Axe" parent="." instance=ExtResource("3_imun0")]
+position = Vector2(55, -30)
