@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MultiplayerD&D"
-run/main_scene="uid://3a54kivsiru2"
+run/main_scene="uid://7dutjmu04kaf"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -26,6 +26,7 @@ ClassHandler="*res://scripts/class_handler.gd"
 
 window/size/viewport_width=800
 window/size/viewport_height=600
+window/size/mode=1
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0

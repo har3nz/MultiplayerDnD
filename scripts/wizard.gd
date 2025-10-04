@@ -10,6 +10,8 @@ var mini_missile_scene = preload("res://scenes/mini_missile.tscn")
 var mini_missile
 var mouse_down: bool = false
 
+var flipped: bool = false
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
@@ -31,13 +33,17 @@ func spawn_mini_missile() -> void:
 	var mdir = m_pos - self.position
 	mini_missile.set_dir(mdir)
 	get_parent().add_child(mini_missile)
-	#GlobalMultiplayerSpawner.rpc("sv_spawn_mini_missile")
 	
 
 func _physics_process(_delta) -> void:
 	#if !is_multiplayer_authority(): return
 
 	velocity = Input.get_vector("left", "right", "up", "down") * SPEED
+
+	if Input.is_action_just_pressed("right"):
+		flipped = false
+	if Input.is_action_just_pressed("left"):
+		flipped = true
 
 	# Fireball
 	if Input.is_action_just_pressed("skill1"):

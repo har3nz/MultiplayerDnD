@@ -5,6 +5,7 @@ var SPEED: int = 500
 var max_health: float = 100
 var health: float = max_health
 
+var axe_flipped: bool = false
 var flipped: bool = false
 
 var m_pos = Vector2.ZERO
@@ -25,12 +26,17 @@ func _physics_process(delta) -> void:
 	velocity = Input.get_vector("left", "right", "up", "down") * SPEED
 	m_pos = get_viewport().get_mouse_position()
 
-	if m_pos.x < position.x:
-		flipped = true
-	else:
+	if Input.is_action_just_pressed("right"):
 		flipped = false
+	if Input.is_action_just_pressed("left"):
+		flipped = true
 
-	if flipped:
+	if m_pos.x < position.x:
+		axe_flipped = true
+	else:
+		axe_flipped = false
+
+	if axe_flipped:
 		$Sprite2D.scale.x = -0.5
 	else:
 		$Sprite2D.scale.x = 0.5

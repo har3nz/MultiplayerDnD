@@ -1,15 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm1l8ahp4tijp"]
+[gd_scene load_steps=4 format=3 uid="uid://dm1l8ahp4tijp"]
 
-[ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_dlw1k"]
+[ext_resource type="Script" uid="uid://cl4snwt07s225" path="res://scripts/rogue.gd" id="1_b3c45"]
+[ext_resource type="Texture2D" uid="uid://dmo0tbg6f800d" path="res://sprites/rogue.png" id="2_b3c45"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b3c45"]
-radius = 31.016125
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b3c45"]
+height = 50.0
 
 [node name="rogue" type="CharacterBody2D"]
+script = ExtResource("1_b3c45")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_dlw1k")
+texture_filter = 1
+position = Vector2(-1, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("2_b3c45")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_b3c45")
+shape = SubResource("CapsuleShape2D_b3c45")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Cooldown" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
