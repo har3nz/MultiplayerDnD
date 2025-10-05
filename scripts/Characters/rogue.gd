@@ -13,7 +13,7 @@ var invis_ran_out: bool = false
 var flipped: bool = false
 var slash_flipped: bool = false
 
-var slash = preload("res://scenes/slash.tscn")
+var slash = preload("res://scenes/Skills/slash.tscn")
 
 var m_pos: Vector2
 

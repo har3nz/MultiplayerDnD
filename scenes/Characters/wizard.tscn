@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxcxi0ervwr2p"]
 
 [ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_3jsmo"]
-[ext_resource type="Script" uid="uid://cl5h2h0bqkqvp" path="res://scripts/wizard.gd" id="1_leome"]
+[ext_resource type="Script" uid="uid://cl5h2h0bqkqvp" path="res://scripts/Characters/wizard.gd" id="1_leome"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_leome"]
 properties/0/path = NodePath(".:position")

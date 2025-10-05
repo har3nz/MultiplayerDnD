@@ -8,7 +8,7 @@ var cur_speed = SPEED
 
 var mouse_down: bool
 
-var crow_scene = preload("res://scenes/crow.tscn")
+var crow_scene = preload("res://scenes/Skills/crow.tscn")
 var crow
 
 func _physics_process(_delta) -> void:

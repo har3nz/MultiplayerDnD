@@ -1,11 +1,9 @@
 extends MultiplayerSpawner
 
+@export var wizard: PackedScene = preload("res://scenes/Characters/wizard.tscn")
 
-@export var network_player: PackedScene = preload("res://scenes/player.tscn")
-@export var wizard: PackedScene = preload("res://scenes/wizard.tscn")
-
-@export var fireball: PackedScene = preload("res://scenes/fireball.tscn")
-@export var mini_missile: PackedScene = preload("res://scenes/mini_missile.tscn")
+@export var fireball: PackedScene = preload("res://scenes/Skills/fireball.tscn")
+@export var mini_missile: PackedScene = preload("res://scenes/Skills/mini_missile.tscn")
 
 func spawn_player(id: int) -> void:
 	if !multiplayer.is_server(): return
@@ -13,7 +11,7 @@ func spawn_player(id: int) -> void:
 	if ClassHandler.players[id] == "wizard":
 		player = wizard.instantiate()
 	else:
-		player = network_player.instantiate()
+		player = wizard.instantiate()
 	player.name = str(id)
 	player.position = Vector2(300,300)
 

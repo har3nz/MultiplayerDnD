@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bge8vwy51igo8"]
 
-[ext_resource type="Script" uid="uid://0l5thbt5lnyb" path="res://scripts/barbarian.gd" id="1_omgms"]
+[ext_resource type="Script" uid="uid://0l5thbt5lnyb" path="res://scripts/Characters/barbarian.gd" id="1_omgms"]
 [ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_vce3p"]
-[ext_resource type="PackedScene" uid="uid://cvixtesfcwysl" path="res://scenes/axe.tscn" id="3_imun0"]
+[ext_resource type="PackedScene" uid="uid://cvixtesfcwysl" path="res://scenes/Skills/axe.tscn" id="3_imun0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_omgms"]
 radius = 31.0

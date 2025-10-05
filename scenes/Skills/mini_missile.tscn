@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://jmmm8d4ojh5"]
 
-[ext_resource type="Script" uid="uid://b0xv7dg0p8vtb" path="res://scripts/mini_missile.gd" id="1_dvb04"]
+[ext_resource type="Script" uid="uid://b0xv7dg0p8vtb" path="res://scripts/Skills/mini_missile.gd" id="1_dvb04"]
 [ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_gsmbg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dvb04"]

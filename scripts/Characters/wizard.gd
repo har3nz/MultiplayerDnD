@@ -5,8 +5,8 @@ const SPEED: int = 400
 var max_health: float = 50
 var health: float = max_health
 
-var fireball_scene = preload("res://scenes/fireball.tscn")
-var mini_missile_scene = preload("res://scenes/mini_missile.tscn")
+var fireball_scene = preload("res://scenes/Skills/fireball.tscn")
+var mini_missile_scene = preload("res://scenes/Skills/mini_missile.tscn")
 var mini_missile
 var mouse_down: bool = false
 
@@ -23,7 +23,7 @@ func spawn_fireball() -> void:
 	var angle = atan2(m_pos.y - self.position.y, m_pos.x - self.position.x)
 	fireball.set_dir(fdir)
 	fireball.rotation = angle + 1.57
-	get_parent().add_child(fireball)
+	get_parent().add_child(fireball, true)
 	#GlobalMultiplayerSpawner.rpc("sv_spawn_fireball")
 
 func spawn_mini_missile() -> void:

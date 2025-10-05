@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://5gf7kg7gunss"]
 
-[ext_resource type="Script" uid="uid://8wkshxljwsqq" path="res://scripts/slash.gd" id="1_3c2nd"]
+[ext_resource type="Script" uid="uid://8wkshxljwsqq" path="res://scripts/Skills/slash.gd" id="1_3c2nd"]
 [ext_resource type="Texture2D" uid="uid://d2vfwfye144pl" path="res://sprites/slash.png" id="1_rkylg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3c2nd"]

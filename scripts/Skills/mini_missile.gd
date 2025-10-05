@@ -39,10 +39,10 @@ func _process(delta):
 	time_passed += delta
 	distance = position.distance_to(m_pos)
 	
-	if distance < 70:
-		if distance < 30:
-			circling = true
-	elif distance > 70 and circling:
+
+	if distance < 15:
+		circling = true
+	elif distance > 42 and circling:
 		circling = false
 
 	if circling:
@@ -54,8 +54,8 @@ func _process(delta):
 
 
 func circular_motion(delta) -> void:
-	angle += delta * 6
-	var wobble = sin(time_passed * 17) * 20
+	angle += delta * 4
+	var wobble = sin(time_passed * 20) * 10
 	var effective_radius = radius + wobble
 	position.x = m_pos.x + effective_radius * cos(angle)
 	position.y = m_pos.y + effective_radius * sin(angle)
