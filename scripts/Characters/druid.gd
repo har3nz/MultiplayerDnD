@@ -3,7 +3,7 @@ extends CharacterBody2D
 var m_pos: Vector2
 var flipped: bool = false
 
-const SPEED = 300
+const SPEED = 320
 var cur_speed = SPEED
 
 var mouse_down: bool

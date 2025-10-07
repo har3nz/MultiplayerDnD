@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED: int = 400
+const SPEED: int = 220
 
 var max_health: float = 50
 var health: float = max_health

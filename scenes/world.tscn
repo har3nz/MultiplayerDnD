@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://7dutjmu04kaf"]
+[gd_scene load_steps=3 format=3 uid="uid://7dutjmu04kaf"]
 
+[ext_resource type="PackedScene" uid="uid://cfk4i3w7falg1" path="res://scenes/Characters/bard.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://cmu1apvlfm383" path="res://scripts/Network/multiplayer_spawner.gd" id="2_rwgxs"]
 
 [node name="World" type="Node2D"]
@@ -9,3 +10,5 @@ _spawnable_scenes = PackedStringArray("uid://bxcxi0ervwr2p")
 spawn_path = NodePath("..")
 spawn_limit = 100
 script = ExtResource("2_rwgxs")
+
+[node name="bard" parent="." instance=ExtResource("2_4wyf3")]

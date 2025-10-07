@@ -26,10 +26,9 @@ func _ready() -> void:
 func _on_peer_connected(id: int) -> void:
 	var plr_name = "Player " + str(id)
 	players.append(plr_name)
-	rpc("update_player_list", players)
 
 
-@rpc("any_peer", "call_local", "reliable")
+
 func update_player_list(new_players: Array) -> void:
 	players = new_players
 	plr_count.text = "%d/5" % players.size()
