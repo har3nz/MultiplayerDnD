@@ -28,7 +28,7 @@ func _on_peer_connected(id: int) -> void:
 	players.append(plr_name)
 
 
-
+"""
 func update_player_list(new_players: Array) -> void:
 	players = new_players
 	plr_count.text = "%d/5" % players.size()
@@ -39,6 +39,7 @@ func update_player_list(new_players: Array) -> void:
 			player_labels[i].visible = true
 		else:
 			player_labels[i].visible = false
+"""
 
 
 func _on_start_pressed() -> void:

@@ -21,6 +21,8 @@ NetworkHandler="*res://scripts/Network/network_handler.gd"
 GlobalMultiplayerSpawner="*res://scripts/Network/multiplayer_spawner.gd"
 GlobalMultiplayer="*res://scripts/Network/global_multiplayer.gd"
 ClassHandler="*res://scripts/class_handler.gd"
+ClientNetworkGlobals="*res://scripts/Network/client_network_globals.gd"
+ServerNetworkGlobals="*res://scripts/Network/server_network_globals.gd"
 
 [display]
 
