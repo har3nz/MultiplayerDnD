@@ -1,5 +1,4 @@
 extends Node
-#peer.create_client("88.240.176.255", 15155)
 
 signal on_peer_connected(peer_id: int)
 signal on_peer_disconnected(peer_id:int)
