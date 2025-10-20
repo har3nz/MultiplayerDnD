@@ -1,5 +1,7 @@
 class_name PlayerPosition extends PacketInfo
 
+
+
 var id: int
 var position: Vector2
 

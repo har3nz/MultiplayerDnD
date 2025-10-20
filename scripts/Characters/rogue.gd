@@ -21,6 +21,21 @@ var dir = Vector2.ZERO
 var spin_angle: float = 0.0
 @export var radius: float = 20.0
 
+var is_authority: bool:
+	get: return !NetworkHandler.is_server && owner_id == ClientNetworkGlobals.id
+
+var owner_id: int
+
+func _enter_tree() -> void:
+	ServerNetworkGlobals.handle_player_position.connect(server_handle_player_position)
+	ClientNetworkGlobals.handle_player_position.connect(client_handle_player_position)
+
+func _exit_tree() -> void:
+	ServerNetworkGlobals.handle_player_position.disconnect(server_handle_player_position)
+	ClientNetworkGlobals.handle_player_position.disconnect(client_handle_player_position)
+
+
+
 func _physics_process(_delta) -> void:
 	#if !is_multiplayer_authority(): return
 	m_pos = get_global_mouse_position()
@@ -56,6 +71,22 @@ func _physics_process(_delta) -> void:
 		
 
 	move_and_slide()
+
+	PlayerPosition.create(owner_id, global_position).send(NetworkHandler.server_peer)
+
+func server_handle_player_position(peer_id: int, player_position: PlayerPosition) -> void:
+	if owner_id != peer_id: return
+
+	global_position = player_position.position
+
+	PlayerPosition.create(owner_id, global_position).broadcast(NetworkHandler.connection)
+
+
+func client_handle_player_position(player_position: PlayerPosition) -> void:
+	if is_authority || owner_id != player_position.id: return
+
+	global_position = player_position.position
+	
 
 func _on_timer_timeout() -> void:
 	invis_ran_out = true

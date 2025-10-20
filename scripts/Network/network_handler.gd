@@ -1,7 +1,5 @@
 extends Node
-
 #peer.create_client("88.240.176.255", 15155)
-
 
 signal on_peer_connected(peer_id: int)
 signal on_peer_disconnected(peer_id:int)
@@ -19,7 +17,7 @@ var server_peer: ENetPacketPeer
 var connection: ENetConnection
 var is_server: bool= false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if connection == null: return
 
 	handle_events()
@@ -61,8 +59,22 @@ func peer_connected(peer: ENetPacketPeer) -> void:
 	peer.set_meta("id", peer_id)
 	client_peers[peer_id] = peer
 
+	var peer_ids := client_peers.keys()
+
+	# update server UI
+	var waiting_room = get_tree().current_scene
+	if waiting_room.has_method("update_player_list_from_peers"):
+		waiting_room.update_player_list_from_peers(peer_ids)
+
 	print("Peer connected with assigned id: ", peer_id)
 	on_peer_connected.emit(peer_id)
+
+	# --- BROADCAST FULL PEER LIST TO ALL CLIENTS ---
+	var list_packet := PeerList.create(peer_ids)
+	list_packet.broadcast(connection)  # <-- send to everyone including the new client
+
+
+	
 
 func connected_to_server() -> void:
 	print("Succesfully connected to server!")
@@ -73,8 +85,14 @@ func peer_disconnected(peer: ENetPacketPeer) -> void:
 	available_peer_ids.push_back(peer_id)
 	client_peers.erase(peer_id)
 
+	# update server UI
+	var waiting_room = get_tree().current_scene
+	if waiting_room.has_method("update_player_list_from_peers"):
+		waiting_room.update_player_list_from_peers(client_peers.keys())
+
 	print("Succesfully disconnected: ", peer_id, " from server!")
 	on_peer_disconnected.emit(peer_id)
+
 
 func disconnected_from_server() -> void:
 	print("Succesfully disconnected from server!")

@@ -11,18 +11,17 @@ config_version=5
 [application]
 
 config/name="MultiplayerD&D"
-run/main_scene="uid://7dutjmu04kaf"
+run/main_scene="uid://3a54kivsiru2"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 NetworkHandler="*res://scripts/Network/network_handler.gd"
-GlobalMultiplayerSpawner="*res://scripts/Network/multiplayer_spawner.gd"
-GlobalMultiplayer="*res://scripts/Network/global_multiplayer.gd"
 ClassHandler="*res://scripts/class_handler.gd"
 ClientNetworkGlobals="*res://scripts/Network/client_network_globals.gd"
 ServerNetworkGlobals="*res://scripts/Network/server_network_globals.gd"
+PlayerSpawner="*res://scripts/Network/player_spawner.gd"
 
 [display]
 

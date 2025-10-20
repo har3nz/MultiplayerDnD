@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func on_peer_connected(peer_id: int) -> void:
     peer_ids.append(peer_id)
-
+    
     IDAssignment.create(peer_id, peer_ids).broadcast(NetworkHandler.connection)
 
 

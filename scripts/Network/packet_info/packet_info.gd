@@ -2,7 +2,10 @@ class_name PacketInfo
 
 enum PACKET_TYPE {
     ID_ASSIGNMENT = 0,
-    PLAYER_POSITION = 10,
+    PLAYER_POSITION = 1,
+    PEER_LIST = 2,
+    START_GAME = 3,
+    SPAWN_PLAYER = 4
 }
 
 var packet_type: PACKET_TYPE
