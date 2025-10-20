@@ -1,5 +1,4 @@
-class_name StartGame
-extends PacketInfo
+class_name StartGame extends PacketInfo
 
 static func create() -> StartGame:
 	var info := StartGame.new()

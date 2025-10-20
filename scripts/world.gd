@@ -1,7 +1,11 @@
 extends Node2D
 
+var is_authority: bool:
+	get: return NetworkHandler.is_server
+
 func _ready():
-	if multiplayer.is_server():
-		for id in multiplayer.get_peers():
-			print(id)
-			$MultiplayerSpawner.spawn_player(id)
+	if not is_authority:
+		return
+
+	var start_packet := SpawnPlayer.create()
+	start_packet.broadcast(NetworkHandler.connection)

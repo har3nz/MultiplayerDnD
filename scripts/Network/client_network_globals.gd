@@ -28,12 +28,13 @@ func on_client_packet(data: PackedByteArray) -> void:
 
 		PacketInfo.PACKET_TYPE.START_GAME:
 			get_tree().change_scene_to_file("res://scenes/world.tscn")
+
+		PacketInfo.PACKET_TYPE.SPAWN_PLAYER:
 			for peer_id in packet.peer_ids:
 				if get_node_or_null(str(peer_id)) == null:
 					PlayerSpawner.spawn_player(peer_id)
 		_:
 			push_error("Packet type with index ", data[0], " unhandled")
-
 
 
 func manage_ids(id_assignment: IDAssignment) -> void:
