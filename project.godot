@@ -22,6 +22,7 @@ ClassHandler="*res://scripts/class_handler.gd"
 ClientNetworkGlobals="*res://scripts/Network/client_network_globals.gd"
 ServerNetworkGlobals="*res://scripts/Network/server_network_globals.gd"
 PlayerSpawner="*res://scripts/Network/player_spawner.gd"
+CreateSkills="*res://scripts/Network/create_skills.gd"
 
 [display]
 

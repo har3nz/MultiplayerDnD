@@ -70,10 +70,8 @@ func peer_connected(peer: ENetPacketPeer) -> void:
 
 	# --- BROADCAST FULL PEER LIST TO ALL CLIENTS ---
 	var list_packet := PeerList.create(peer_ids)
-	list_packet.broadcast(connection)  # <-- send to everyone including the new client
+	list_packet.broadcast(connection)
 
-
-	
 
 func connected_to_server() -> void:
 	print("Succesfully connected to server!")
@@ -84,7 +82,7 @@ func peer_disconnected(peer: ENetPacketPeer) -> void:
 	available_peer_ids.push_back(peer_id)
 	client_peers.erase(peer_id)
 
-	# update server UI
+	# update server UI<
 	var waiting_room = get_tree().current_scene
 	if waiting_room.has_method("update_player_list_from_peers"):
 		waiting_room.update_player_list_from_peers(client_peers.keys())

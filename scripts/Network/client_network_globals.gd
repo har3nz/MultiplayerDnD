@@ -3,6 +3,8 @@ extends Node
 signal handle_local_id_assignment(local_id: int)
 signal handle_remote_id_assignment(remote_id: int)
 signal handle_player_position(player_position: PlayerPosition)
+signal handle_skill_position(position: PlayerPosition, rotation: float)
+
 signal upd_list(list: Array[int])
 
 var id: int = -1
@@ -20,6 +22,9 @@ func on_client_packet(data: PackedByteArray) -> void:
 
 		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_position.emit(PlayerPosition.create_from_data(data))
+		
+		PacketInfo.PACKET_TYPE.SKILL_POSITION:
+			handle_skill_position.emit(SkillPosition.create_from_data(data))
 
 		PacketInfo.PACKET_TYPE.PEER_LIST:
 			packet = PeerList.create_from_data(data)

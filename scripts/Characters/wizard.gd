@@ -18,7 +18,6 @@ const SPEED: int = 220
 var max_health: float = 50
 var health: float = max_health
 
-var fireball_scene = preload("res://scenes/Skills/fireball.tscn")
 var mini_missile_scene = preload("res://scenes/Skills/mini_missile.tscn")
 var mini_missile
 var mouse_down: bool = false
@@ -27,27 +26,23 @@ var flipped: bool = false
 
 
 func spawn_fireball() -> void:
-	var fireball = fireball_scene.instantiate()
-	fireball.position = self.position
 	var m_pos = get_viewport().get_mouse_position()
 	var fdir = m_pos - self.position
 	var angle = atan2(m_pos.y - self.position.y, m_pos.x - self.position.x)
-	fireball.set_dir(fdir)
-	fireball.rotation = angle + 1.57
-	get_parent().add_child(fireball, true)
-	#GlobalMultiplayerSpawner.rpc("sv_spawn_fireball")
+	
+	CreateSkills.spawn_fireball(fdir, angle, self.position)
 
 func spawn_mini_missile() -> void:
 	mini_missile = mini_missile_scene.instantiate()
 	mini_missile.position = self.position
 	var m_pos = get_viewport().get_mouse_position()
 	var mdir = m_pos - self.position
-	mini_missile.set_dir(mdir)
-	get_parent().add_child(mini_missile)
+	
+	CreateSkills.spawn_mini_missile(mini_missile, mdir, position)
 	
 
 func _physics_process(_delta) -> void:
-	#if !is_multiplayer_authority(): return
+	if !is_authority: return
 
 	velocity = Input.get_vector("left", "right", "up", "down") * SPEED
 

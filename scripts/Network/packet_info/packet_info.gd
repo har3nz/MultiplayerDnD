@@ -5,7 +5,9 @@ enum PACKET_TYPE {
     PLAYER_POSITION = 1,
     PEER_LIST = 2,
     START_GAME = 3,
-    SPAWN_PLAYER = 4
+    SPAWN_PLAYER = 4,
+    SPAWN_SKILL = 5,
+    SKILL_POSITION = 6
 }
 
 var packet_type: PACKET_TYPE
