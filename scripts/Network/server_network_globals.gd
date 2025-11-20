@@ -1,7 +1,7 @@
 extends Node
 
 signal handle_player_position(peer_id: int, player_position: PlayerPosition)
-signal handle_skill_position(position: PlayerPosition, rotation: float)
+signal handle_skill_position(data: PackedByteArray)
 
 var peer_ids: Array[int]
 

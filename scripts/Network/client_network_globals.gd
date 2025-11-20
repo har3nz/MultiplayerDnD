@@ -38,6 +38,8 @@ func on_client_packet(data: PackedByteArray) -> void:
 			for peer_id in packet.peer_ids:
 				if get_node_or_null(str(peer_id)) == null:
 					PlayerSpawner.spawn_player(peer_id)
+		PacketInfo.PACKET_TYPE.SHOOT_PROJECTILE:
+			pass
 		_:
 			push_error("Packet type with index ", data[0], " unhandled")
 

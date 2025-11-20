@@ -38,8 +38,17 @@ func spawn_mini_missile() -> void:
 	var m_pos = get_viewport().get_mouse_position()
 	var mdir = m_pos - self.position
 	
-	CreateSkills.spawn_mini_missile(mini_missile, mdir, position)
+	var create_skill_packet := ShootProjectile.create(owner_id, position, mdir, 0)
+	create_skill_packet.broadcast(NetworkHandler.connection)
+
+func client_handle_shoot_projectile(data: ShootProjectile) -> void:
+	if owner_id != data.id: return
 	
+	mini_missile = mini_missile_scene.instantiate()
+	mini_missile.position = data.position
+	#var m_pos = get_viewport().get_mouse_position()
+	call_deferred("add_child", mini_missile)
+	#CreateSkills.spawn_mini_missile(mini_missile, data.direction, data.start_position)
 
 func _physics_process(_delta) -> void:
 	if !is_authority: return
