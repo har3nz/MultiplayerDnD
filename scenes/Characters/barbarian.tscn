@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bge8vwy51igo8"]
+[gd_scene format=3 uid="uid://bge8vwy51igo8"]
 
 [ext_resource type="Script" uid="uid://0l5thbt5lnyb" path="res://scripts/Characters/barbarian.gd" id="1_omgms"]
 [ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_vce3p"]
@@ -7,16 +7,16 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_omgms"]
 radius = 31.0
 
-[node name="barbarian" type="CharacterBody2D"]
+[node name="barbarian" type="CharacterBody2D" unique_id=452444259]
 motion_mode = 1
 script = ExtResource("1_omgms")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1744644855]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_vce3p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=45179448]
 shape = SubResource("CircleShape2D_omgms")
 
-[node name="Axe" parent="." instance=ExtResource("3_imun0")]
+[node name="Axe" parent="." unique_id=1541313726 instance=ExtResource("3_imun0")]
 position = Vector2(55, -30)

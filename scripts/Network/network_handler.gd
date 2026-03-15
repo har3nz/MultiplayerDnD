@@ -121,6 +121,3 @@ func start_client(ip_address: String = "127.0.0.1", port: int = 42069) -> void:
 		return
 	print("Client Started")
 	server_peer = connection.connect_to_host(ip_address, port)
-
-
-

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://sug35qkwhnu4"]
+[gd_scene format=3 uid="uid://sug35qkwhnu4"]
 
 [ext_resource type="Script" uid="uid://pnj0itl2ta07" path="res://scripts/Network/waiting_room.gd" id="1_0q7jc"]
 
-[node name="waiting_room" type="Control"]
+[node name="waiting_room" type="Control" unique_id=1393064970]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0q7jc")
 
-[node name="plr_count" type="Label" parent="."]
+[node name="plr_count" type="Label" parent="." unique_id=864616663]
 layout_mode = 0
 offset_left = 365.5
 offset_top = 27.445
@@ -20,7 +20,7 @@ offset_bottom = 90.4451
 theme_override_font_sizes/font_size = 45
 text = "0/5"
 
-[node name="Start" type="Button" parent="."]
+[node name="Start" type="Button" parent="." unique_id=1799269403]
 layout_mode = 0
 offset_left = 316.0
 offset_top = 405.0
@@ -29,56 +29,56 @@ offset_bottom = 476.00018
 theme_override_font_sizes/font_size = 45
 text = "Start"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=191657990]
 layout_mode = 0
 offset_left = 266.0
 offset_top = 113.0
 offset_right = 543.0
 offset_bottom = 380.0
 
-[node name="Player" type="Label" parent="VBoxContainer"]
+[node name="Player" type="Label" parent="VBoxContainer" unique_id=928332727]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 
-[node name="Player2" type="Label" parent="VBoxContainer"]
+[node name="Player2" type="Label" parent="VBoxContainer" unique_id=348560498]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 
-[node name="Player3" type="Label" parent="VBoxContainer"]
+[node name="Player3" type="Label" parent="VBoxContainer" unique_id=2113234130]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 
-[node name="Player4" type="Label" parent="VBoxContainer"]
+[node name="Player4" type="Label" parent="VBoxContainer" unique_id=2015531349]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 
-[node name="Player5" type="Label" parent="VBoxContainer"]
+[node name="Player5" type="Label" parent="VBoxContainer" unique_id=603391525]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=390419758]
 layout_mode = 0
 offset_right = 123.0
 offset_bottom = 211.0
 
-[node name="wizard" type="Button" parent="VBoxContainer2"]
+[node name="wizard" type="Button" parent="VBoxContainer2" unique_id=1223585796]
 layout_mode = 2
 text = "Wizard"
 
-[node name="druid" type="Button" parent="VBoxContainer2"]
+[node name="druid" type="Button" parent="VBoxContainer2" unique_id=1963587643]
 layout_mode = 2
 text = "Druid
 "
 
-[node name="bard" type="Button" parent="VBoxContainer2"]
+[node name="bard" type="Button" parent="VBoxContainer2" unique_id=1350731043]
 layout_mode = 2
 text = "Bard"
 
-[node name="rogue" type="Button" parent="VBoxContainer2"]
+[node name="rogue" type="Button" parent="VBoxContainer2" unique_id=1352703820]
 layout_mode = 2
 text = "Rogue"
 
-[node name="barbarian" type="Button" parent="VBoxContainer2"]
+[node name="barbarian" type="Button" parent="VBoxContainer2" unique_id=1420009385]
 layout_mode = 2
 text = "Barbarian
 "

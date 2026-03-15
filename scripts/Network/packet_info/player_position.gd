@@ -29,5 +29,3 @@ func decode(data: PackedByteArray) -> void:
 	id = data.decode_u8(1)
 	position = Vector2(data.decode_float(2), data.decode_float(6))
 	
-
-

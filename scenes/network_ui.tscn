@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhe8py84rspjq"]
+[gd_scene format=3 uid="uid://dhe8py84rspjq"]
 
 [ext_resource type="Script" uid="uid://dt2vj8kid1tcw" path="res://scripts/Network/network_ui.gd" id="1_rqm01"]
 
-[node name="NetworkUI" type="Control"]
+[node name="NetworkUI" type="Control" unique_id=1091613592]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rqm01")
 
-[node name="Client" type="Button" parent="."]
+[node name="Client" type="Button" parent="." unique_id=2019996389]
 layout_mode = 0
 offset_left = 286.0
 offset_top = 270.0
@@ -20,7 +20,7 @@ offset_bottom = 352.0
 theme_override_font_sizes/font_size = 45
 text = "Join"
 
-[node name="Server" type="Button" parent="."]
+[node name="Server" type="Button" parent="." unique_id=663407859]
 layout_mode = 0
 offset_left = 282.0
 offset_top = 148.0

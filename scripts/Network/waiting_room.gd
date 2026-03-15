@@ -42,3 +42,7 @@ func _on_start_pressed() -> void:
 	start_packet.broadcast(NetworkHandler.connection)
 
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
+
+
+func _on_wizard_pressed() -> void:
+	pass

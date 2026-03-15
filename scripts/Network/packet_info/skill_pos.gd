@@ -29,5 +29,3 @@ func decode(data: PackedByteArray) -> void:
 	rotation = data.decode_float(8)
 	position = Vector2(data.decode_float(2), data.decode_float(6))
 	
-
-

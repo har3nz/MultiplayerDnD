@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://3a54kivsiru2"]
+[gd_scene format=3 uid="uid://3a54kivsiru2"]
 
 [ext_resource type="PackedScene" uid="uid://dhe8py84rspjq" path="res://scenes/network_ui.tscn" id="1_ffxv4"]
 
-[node name="Room" type="Node2D"]
+[node name="Room" type="Node2D" unique_id=943210651]
 
-[node name="NetworkUI" parent="." instance=ExtResource("1_ffxv4")]
+[node name="NetworkUI" parent="." unique_id=269234853 instance=ExtResource("1_ffxv4")]
