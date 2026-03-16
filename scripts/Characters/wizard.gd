@@ -3,7 +3,7 @@ extends CharacterBody2D
 var is_authority: bool:
 	get: return !NetworkHandler.is_server && owner_id == ClientNetworkGlobals.id
 
-var owner_id: int
+var owner_id: int #Is defined in player_spawner.gd
 
 func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_position.connect(server_handle_player_position)

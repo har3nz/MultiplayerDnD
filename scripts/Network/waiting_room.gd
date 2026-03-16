@@ -8,6 +8,8 @@ var players: Array = []
 var is_authority: bool:
 	get: return NetworkHandler.is_server
 
+
+
 func _ready() -> void:
 	if is_authority:
 		start_button.show()
@@ -43,6 +45,43 @@ func _on_start_pressed() -> void:
 
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 
+enum CLASSES{
+	WIZARD,
+	DRUID,
+	BARD,
+	ROGUE,
+	BARBARIAN,
+}
 
 func _on_wizard_pressed() -> void:
-	pass
+	var peer_id = ClientNetworkGlobals.id
+	if peer_id == -1:
+		return
+	print(peer_id)
+	ClassSelect.create(peer_id, CLASSES.WIZARD)
+
+func _on_barbarian_pressed() -> void:
+	var peer_id = ClientNetworkGlobals.id
+	if peer_id == -1:
+		return
+	ClassSelect.create(peer_id, CLASSES.BARBARIAN)
+
+
+func _on_rogue_pressed() -> void:
+	var peer_id = ClientNetworkGlobals.id
+	if peer_id == -1:
+		return
+	ClassSelect.create(peer_id, CLASSES.ROGUE)
+
+
+func _on_bard_pressed() -> void:
+	var peer_id = ClientNetworkGlobals.id
+	if peer_id == -1:
+		return
+	ClassSelect.create(peer_id, CLASSES.BARD)
+
+func _on_druid_pressed() -> void:
+	var peer_id = ClientNetworkGlobals.id
+	if peer_id == -1:
+		return
+	ClassSelect.create(peer_id, CLASSES.DRUID)

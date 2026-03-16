@@ -10,11 +10,12 @@ signal upd_list(list: Array[int])
 var id: int = -1
 var remote_ids: Array[int]
 var packet
-
+var selected_class: ClassSelect
 func _ready() -> void:
 	NetworkHandler.on_client_packet.connect(on_client_packet)
 
 func on_client_packet(data: PackedByteArray) -> void:
+	
 	var packet_type: int = data.decode_u8(0)
 	match packet_type:
 		PacketInfo.PACKET_TYPE.ID_ASSIGNMENT:
@@ -36,12 +37,15 @@ func on_client_packet(data: PackedByteArray) -> void:
 
 		PacketInfo.PACKET_TYPE.SPAWN_PLAYER:
 			for peer_id in packet.peer_ids:
-				if get_node_or_null(str(peer_id)) == null:
-					PlayerSpawner.spawn_player(peer_id, packet.)
+				if get_node_or_null(str(peer_id)) != null or selected_class != null:
+					PlayerSpawner.spawn_player(selected_class)
 		PacketInfo.PACKET_TYPE.SHOOT_PROJECTILE:
 			pass
 		PacketInfo.PACKET_TYPE.SKILL_POSITION:
 			pass
+		PacketInfo.PACKET_TYPE.CLASS_SELECT:
+			selected_class = ClassSelect.create_from_data(data)
+			print(selected_class)
 		_:
 			push_error("Packet type with index ", data[0], " unhandled")
 
