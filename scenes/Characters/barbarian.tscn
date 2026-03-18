@@ -8,6 +8,8 @@
 radius = 31.0
 
 [node name="barbarian" type="CharacterBody2D" unique_id=452444259]
+collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_omgms")
 

@@ -34,7 +34,7 @@ func _exit_tree() -> void:
 
 
 func _physics_process(delta) -> void:
-	if !is_multiplayer_authority(): return
+	if !is_authority: return
 	velocity = Input.get_vector("left", "right", "up", "down") * SPEED
 	m_pos = get_viewport().get_mouse_position()
 

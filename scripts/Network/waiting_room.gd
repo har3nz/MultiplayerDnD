@@ -57,31 +57,40 @@ func _on_wizard_pressed() -> void:
 	var peer_id = ClientNetworkGlobals.id
 	if peer_id == -1:
 		return
-	print(peer_id)
-	ClassSelect.create(peer_id, CLASSES.WIZARD)
+	var packet := ClassSelect.create(peer_id, CLASSES.WIZARD)
+	if NetworkHandler.server_peer:
+		packet.send(NetworkHandler.server_peer)
 
 func _on_barbarian_pressed() -> void:
 	var peer_id = ClientNetworkGlobals.id
 	if peer_id == -1:
 		return
-	ClassSelect.create(peer_id, CLASSES.BARBARIAN)
+	var packet := ClassSelect.create(peer_id, CLASSES.BARBARIAN)
+	if NetworkHandler.server_peer:
+		packet.send(NetworkHandler.server_peer)
 
 
 func _on_rogue_pressed() -> void:
 	var peer_id = ClientNetworkGlobals.id
 	if peer_id == -1:
 		return
-	ClassSelect.create(peer_id, CLASSES.ROGUE)
+	var packet := ClassSelect.create(peer_id, CLASSES.ROGUE)
+	if NetworkHandler.server_peer:
+		packet.send(NetworkHandler.server_peer)
 
 
 func _on_bard_pressed() -> void:
 	var peer_id = ClientNetworkGlobals.id
 	if peer_id == -1:
 		return
-	ClassSelect.create(peer_id, CLASSES.BARD)
+	var packet := ClassSelect.create(peer_id, CLASSES.BARD)
+	if NetworkHandler.server_peer:
+		packet.send(NetworkHandler.server_peer)
 
 func _on_druid_pressed() -> void:
 	var peer_id = ClientNetworkGlobals.id
 	if peer_id == -1:
 		return
-	ClassSelect.create(peer_id, CLASSES.DRUID)
+	var packet := ClassSelect.create(peer_id, CLASSES.DRUID)
+	if NetworkHandler.server_peer:
+		packet.send(NetworkHandler.server_peer)

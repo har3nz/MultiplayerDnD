@@ -20,7 +20,7 @@ func on_peer_connected(peer_id: int) -> void:
 func on_peer_disconnected(peer_id: int) -> void:
 	peer_ids.erase(peer_id)
 
-
+var selected_class: ClassSelect
 
 func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 	var packet_type: int = data.decode_u8(0)
@@ -30,6 +30,7 @@ func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 		PacketInfo.PACKET_TYPE.SKILL_POSITION:
 			handle_skill_position.emit(SkillPosition.create_from_data(data))
 		PacketInfo.PACKET_TYPE.CLASS_SELECT:
-			pass
+			selected_class = ClassSelect.create_from_data(data)
+			selected_class.broadcast(NetworkHandler.connection)
 		_:
 			push_error("Packet type with index ", data [0], " unhandled!")
