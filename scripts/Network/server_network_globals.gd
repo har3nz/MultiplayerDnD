@@ -32,5 +32,6 @@ func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 		PacketInfo.PACKET_TYPE.CLASS_SELECT:
 			selected_class = ClassSelect.create_from_data(data)
 			selected_class.broadcast(NetworkHandler.connection)
+			peer_classes.set(data[1], data[2])
 		_:
 			push_error("Packet type with index ", data [0], " unhandled!")
