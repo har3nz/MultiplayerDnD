@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://bxcxi0ervwr2p"]
 
-[ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_3jsmo"]
 [ext_resource type="Script" uid="uid://cl5h2h0bqkqvp" path="res://scripts/Characters/wizard.gd" id="1_leome"]
+[ext_resource type="Texture2D" uid="uid://sx3mflmfy12i" path="res://sprites/Multiplayer_DnD/Wizard front.png" id="2_vorr7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j4iv4"]
-radius = 31.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cg06j"]
+radius = 9.0
+height = 32.0
 
 [node name="Wizard" type="CharacterBody2D" unique_id=2084236659]
 collision_layer = 0
@@ -13,8 +14,10 @@ motion_mode = 1
 script = ExtResource("1_leome")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=485366332]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_3jsmo")
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_vorr7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=432605457]
-shape = SubResource("CircleShape2D_j4iv4")
+position = Vector2(0, 13)
+shape = SubResource("CapsuleShape2D_cg06j")

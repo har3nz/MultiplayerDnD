@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfk4i3w7falg1"]
 
-[ext_resource type="Texture2D" uid="uid://ddtiahok4plec" path="res://sprites/bard.png" id="1_8okr8"]
 [ext_resource type="Script" uid="uid://bwhbnv4pcoqhc" path="res://scripts/Characters/bard.gd" id="1_tvokh"]
+[ext_resource type="Texture2D" uid="uid://cie4xql3memrv" path="res://sprites/Bard front.png" id="2_tvokh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8okr8"]
 radius = 9.0
@@ -14,8 +14,9 @@ script = ExtResource("1_tvokh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1269428785]
 texture_filter = 1
+position = Vector2(0, -5)
 scale = Vector2(2, 2)
-texture = ExtResource("1_8okr8")
+texture = ExtResource("2_tvokh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1254945654]
 position = Vector2(1, -1)

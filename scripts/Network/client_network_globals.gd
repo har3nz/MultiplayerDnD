@@ -2,8 +2,10 @@ extends Node
 
 signal handle_local_id_assignment(local_id: int)
 signal handle_remote_id_assignment(remote_id: int)
+
 signal handle_player_position(player_position: PlayerPosition)
-signal handle_skill_position(position: PlayerPosition, rotation: float)
+
+signal handle_projectile_position(projectile_position: ProjectilePosition)
 
 signal upd_list(list: Array[int])
 
@@ -11,7 +13,6 @@ var id: int = -1
 var remote_ids: Array[int]
 var packet
 var selected_class: ClassSelect
-
 
 func _ready() -> void:
 	NetworkHandler.on_client_packet.connect(on_client_packet)
@@ -25,9 +26,6 @@ func on_client_packet(data: PackedByteArray) -> void:
 
 		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_position.emit(PlayerPosition.create_from_data(data))
-		
-		PacketInfo.PACKET_TYPE.SKILL_POSITION:
-			handle_skill_position.emit(SkillPosition.create_from_data(data))
 
 		PacketInfo.PACKET_TYPE.PEER_LIST:
 			packet = PeerList.create_from_data(data)
@@ -40,12 +38,13 @@ func on_client_packet(data: PackedByteArray) -> void:
 			var spawn_player_packet := SpawnPlayer.create_from_data(data)
 			for peer_id in spawn_player_packet.peer_classes:
 				PlayerSpawner.spawn_player(peer_id, spawn_player_packet.peer_classes[peer_id])
-		PacketInfo.PACKET_TYPE.SHOOT_PROJECTILE:
-			pass
-		PacketInfo.PACKET_TYPE.SKILL_POSITION:
-			pass
 		PacketInfo.PACKET_TYPE.CLASS_SELECT:
 			selected_class = ClassSelect.create_from_data(data)
+		PacketInfo.PACKET_TYPE.SPAWN_PROJECTILE:
+			var spawn_projectile = SpawnProjectile.create_from_data(data)
+			CreateSkills.spawn_projectile(id, spawn_projectile.projectile_type, spawn_projectile.projectile_id)
+		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
+			handle_projectile_position.emit(ProjectilePosition.create_from_data(data))
 		_:
 			push_error("Packet type with index ", data[0], " unhandled")
 

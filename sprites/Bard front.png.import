@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmo0tbg6f800d"
-path="res://.godot/imported/rogue.png-010be07a7b4e5215559eb5877b3f316a.ctex"
+uid="uid://cie4xql3memrv"
+path="res://.godot/imported/Bard front.png-b99ea558583e0b29eb4676e7b20fe053.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/rogue.png"
-dest_files=["res://.godot/imported/rogue.png-010be07a7b4e5215559eb5877b3f316a.ctex"]
+source_file="res://sprites/Bard front.png"
+dest_files=["res://.godot/imported/Bard front.png-b99ea558583e0b29eb4676e7b20fe053.ctex"]
 
 [params]
 

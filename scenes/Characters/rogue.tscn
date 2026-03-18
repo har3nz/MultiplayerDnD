@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dm1l8ahp4tijp"]
 
 [ext_resource type="Script" uid="uid://cl4snwt07s225" path="res://scripts/Characters/rogue.gd" id="1_wf50m"]
-[ext_resource type="Texture2D" uid="uid://dmo0tbg6f800d" path="res://sprites/rogue.png" id="2_8kakk"]
+[ext_resource type="Texture2D" uid="uid://jruh8obht5kb" path="res://sprites/Assassin front.png" id="2_wf50m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b3c45"]
 height = 50.0
@@ -13,9 +13,9 @@ script = ExtResource("1_wf50m")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1086782280]
 texture_filter = 1
-position = Vector2(-1, 1)
+position = Vector2(-1, -6)
 scale = Vector2(2, 2)
-texture = ExtResource("2_8kakk")
+texture = ExtResource("2_wf50m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=283959741]
 shape = SubResource("CapsuleShape2D_b3c45")

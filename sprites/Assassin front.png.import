@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddtiahok4plec"
-path="res://.godot/imported/bard.png-c00c3d11f1d917e666c1c450af84c3f6.ctex"
+uid="uid://jruh8obht5kb"
+path="res://.godot/imported/Assassin front.png-12701638ea592fdfedbd2bdb5a397684.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/bard.png"
-dest_files=["res://.godot/imported/bard.png-c00c3d11f1d917e666c1c450af84c3f6.ctex"]
+source_file="res://sprites/Assassin front.png"
+dest_files=["res://.godot/imported/Assassin front.png-12701638ea592fdfedbd2bdb5a397684.ctex"]
 
 [params]
 

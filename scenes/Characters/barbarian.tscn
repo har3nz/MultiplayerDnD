@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://bge8vwy51igo8"]
 
 [ext_resource type="Script" uid="uid://0l5thbt5lnyb" path="res://scripts/Characters/barbarian.gd" id="1_omgms"]
-[ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_vce3p"]
+[ext_resource type="Texture2D" uid="uid://oyjjpdmv5ddh" path="res://sprites/Org front.png" id="2_tl065"]
 [ext_resource type="PackedScene" uid="uid://cvixtesfcwysl" path="res://scenes/Skills/axe.tscn" id="3_imun0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_omgms"]
-radius = 31.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tl065"]
+radius = 17.0
+height = 60.0
 
 [node name="barbarian" type="CharacterBody2D" unique_id=452444259]
 collision_layer = 0
@@ -14,11 +15,13 @@ motion_mode = 1
 script = ExtResource("1_omgms")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1744644855]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_vce3p")
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_tl065")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=45179448]
-shape = SubResource("CircleShape2D_omgms")
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_tl065")
 
 [node name="Axe" parent="." unique_id=1541313726 instance=ExtResource("3_imun0")]
 position = Vector2(55, -30)

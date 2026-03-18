@@ -8,6 +8,9 @@ var m_pos = Vector2.ZERO
 var prev_m_pos = Vector2.ZERO
 var mouse_velocity = Vector2.ZERO
 
+var owner_id
+var projectile_id
+
 var target
 
 func update_mouse(_m_pos, is_down) -> void:

@@ -24,31 +24,22 @@ var mouse_down: bool = false
 
 var flipped: bool = false
 
+var projectile_counter: int = 0
 
 func spawn_fireball() -> void:
 	var m_pos = get_viewport().get_mouse_position()
 	var fdir = m_pos - self.position
 	var angle = atan2(m_pos.y - self.position.y, m_pos.x - self.position.x)
+	SpawnProjectile.create(owner_id, projectile_counter, 0, self.position, fdir).send(NetworkHandler.server_peer)
+	projectile_counter += 1
 	
-	CreateSkills.spawn_fireball(fdir, angle, self.position)
 
 func spawn_mini_missile() -> void:
-	mini_missile = mini_missile_scene.instantiate()
-	mini_missile.position = self.position
 	var m_pos = get_viewport().get_mouse_position()
 	var mdir = m_pos - self.position
-	
-	var create_skill_packet := ShootProjectile.create(owner_id, position, mdir, 0)
-	create_skill_packet.broadcast(NetworkHandler.connection)
+	SpawnProjectile.create(owner_id, 1, projectile_counter, self.position, mdir).send(NetworkHandler.server_peer)
+	projectile_counter += 1
 
-func client_handle_shoot_projectile(data: ShootProjectile) -> void:
-	if owner_id != data.id: return
-	
-	mini_missile = mini_missile_scene.instantiate()
-	mini_missile.position = data.position
-	#var m_pos = get_viewport().get_mouse_position()
-	call_deferred("add_child", mini_missile)
-	#CreateSkills.spawn_mini_missile(mini_missile, data.direction, data.start_position)
 
 func _physics_process(_delta) -> void:
 	if !is_authority: return

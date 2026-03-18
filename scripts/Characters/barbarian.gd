@@ -48,11 +48,6 @@ func _physics_process(delta) -> void:
 	else:
 		axe_flipped = false
 
-	if axe_flipped:
-		$Sprite2D.scale.x = -0.5
-	else:
-		$Sprite2D.scale.x = 0.5
-
 	if !spinning:
 		dir = (m_pos - global_position).normalized()
 		axe.global_position = global_position + dir * radius

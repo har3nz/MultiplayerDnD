@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c3cbh72n1ohob"]
 
 [ext_resource type="Script" uid="uid://b4o0hjdgxsj4x" path="res://scripts/Characters/druid.gd" id="1_igss6"]
-[ext_resource type="Texture2D" uid="uid://ch6npxt17p8u8" path="res://sprites/druid.png" id="2_545ga"]
+[ext_resource type="Texture2D" uid="uid://d1caq7ekjoggd" path="res://sprites/Druid front.png" id="2_igss6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3abc4"]
-radius = 29.068884
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_545ga"]
+height = 50.0
 
 [node name="druid" type="CharacterBody2D" unique_id=1072634059]
 collision_layer = 0
@@ -13,8 +13,10 @@ script = ExtResource("1_igss6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=571863622]
 texture_filter = 1
+position = Vector2(0, -7)
 scale = Vector2(2, 2)
-texture = ExtResource("2_545ga")
+texture = ExtResource("2_igss6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=411291612]
-shape = SubResource("CircleShape2D_3abc4")
+position = Vector2(1, -1)
+shape = SubResource("CapsuleShape2D_545ga")

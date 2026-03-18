@@ -10,6 +10,8 @@ var m_pos = Vector2.ZERO
 var prev_m_pos = Vector2.ZERO
 var mouse_velocity = Vector2.ZERO
 
+var projectile_id: int
+
 var circling: bool = false
 var radius: int = 30
 var angle: float
@@ -17,12 +19,8 @@ var angle: float
 var target
 
 func _enter_tree() -> void:
-	ServerNetworkGlobals.handle_skill_position.connect(server_handle_skill_position)
-	ClientNetworkGlobals.handle_skill_position.connect(client_handle_skill_position)
-
-func _exit_tree() -> void:
-	ServerNetworkGlobals.handle_skill_position.disconnect(server_handle_skill_position)
-	ClientNetworkGlobals.handle_skill_position.disconnect(client_handle_skill_position)
+	#ClientNetworkGlobals.handle_projectile_position.connect()
+	pass
 
 func update_mouse(_m_pos, is_down) -> void:
 	prev_m_pos = m_pos
@@ -58,19 +56,6 @@ func _process(delta):
 		position += direction * speed * delta
 		var perp = Vector2(-direction.y, direction.x)
 		position += perp * sin(time_passed * 20) * amplitude * delta
-
-	SkillPosition.create(global_position, rotation).send(NetworkHandler.server_peer)
-
-func server_handle_skill_position(skill_position: SkillPosition, rotation: float) -> void:
-
-	global_position = skill_position.position
-
-	SkillPosition.create(global_position, rotation).broadcast(NetworkHandler.connection)
-
-
-func client_handle_skill_position(skill_position: SkillPosition) -> void:
-
-	global_position = skill_position.position
 
 
 func circular_motion(delta) -> void:
