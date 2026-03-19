@@ -45,6 +45,7 @@ func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 
 		PacketInfo.PACKET_TYPE.MOUSE_POSITION:
 			var mouse_pos = MousePosition.create_from_data(data)
+			mouse_pos.broadcast(NetworkHandler.connection)
 			handle_mouse_position.emit(mouse_pos)
 			
 		_:

@@ -27,34 +27,12 @@ func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_projectile_position.connect(server_handle_projectile_position)
 	ClientNetworkGlobals.handle_projectile_position.connect(client_handle_projectile_position)
 
-	ClientNetworkGlobals.handle_mouse_position.connect(update_mouse)
-	ServerNetworkGlobals.handle_mouse_position.connect(update_mouse)
-
 func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_projectile_position.disconnect(server_handle_projectile_position)
 	ClientNetworkGlobals.handle_projectile_position.disconnect(client_handle_projectile_position)
 
-	ClientNetworkGlobals.handle_mouse_position.disconnect(update_mouse)
-	ServerNetworkGlobals.handle_mouse_position.disconnect(update_mouse)
 
 
-
-func update_mouse(mouse_position: MousePosition) -> void:
-	prev_m_pos = m_pos
-	m_pos = mouse_position.position
-	
-	mouse_velocity = (m_pos - prev_m_pos) / get_process_delta_time()
-	
-	if mouse_position.is_down == 1:
-		direction = (m_pos - position).normalized()
-	else:
-		if mouse_velocity.length() > 0:
-			direction = mouse_velocity.normalized()
-		m_pos = Vector2(-500, -500)
-
-
-func set_dir(fdir: Vector2):
-	direction = fdir.normalized()
 
 
 func _physics_process(delta: float) -> void:

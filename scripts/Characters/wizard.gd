@@ -45,6 +45,22 @@ func spawn_mini_missile() -> void:
 	SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, self.position, mdir).send(NetworkHandler.server_peer)
 	projectile_counter += 1
 
+var prev_mouse_pos = Vector2.ZERO
+
+var direction = Vector2.ZERO
+
+func calculate_direction(mouse_pos: Vector2, projectile_pos: Vector2, is_down: bool):
+	
+	var mouse_velocity = (mouse_pos - prev_mouse_pos) / get_process_delta_time()
+	
+	if is_down:
+		direction = mouse_pos - projectile_pos
+	else:
+		if mouse_velocity.length() > 0:
+			direction = mouse_velocity
+
+	prev_mouse_pos = mouse_pos
+	return direction.normalized()
 
 func _physics_process(_delta) -> void:
 	if !is_authority: return
@@ -65,16 +81,19 @@ func _physics_process(_delta) -> void:
 	if Input.is_action_just_pressed("fire"):
 		spawn_mini_missile()
 		mouse_down = true
+		var ProjectilePosition = ProjectilePosition.create(owner_id, projectile_counter - 1, PROJECTILES.MINI_MISSILE, global_position, direction)
+		ProjectilePosition.send(NetworkHandler.server_peer)
 	
 	if Input.is_action_just_released("fire"):
 		mouse_down = false
 		var m_pos = get_viewport().get_mouse_position()
-		MousePosition.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, m_pos, 0).send(NetworkHandler.server_peer)
+		var ProjectilePosition = ProjectilePosition.create(owner_id, projectile_counter - 1, PROJECTILES.MINI_MISSILE, global_position, direction)
+		ProjectilePosition.send(NetworkHandler.server_peer)
 
+		
 	if mouse_down and mini_missile:
-		var m_pos = get_viewport().get_mouse_position()
-		MousePosition.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, m_pos, 1).send(NetworkHandler.server_peer)
-
+		var m_pos = get_viewport().get_parent().get_mouse_position()
+		
 
 	move_and_slide()
 

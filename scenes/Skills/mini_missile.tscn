@@ -15,3 +15,10 @@ texture = ExtResource("1_gsmbg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=18554570]
 shape = SubResource("CircleShape2D_dvb04")
+
+[node name="Timer" type="Timer" parent="." unique_id=1139695451]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
