@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3slte148gggi"]
+[gd_scene format=3 uid="uid://c3slte148gggi"]
 
 [ext_resource type="Script" uid="uid://bbnrnjyrq1ex8" path="res://scripts/Skills/crow.gd" id="1_asodn"]
 [ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="2_rnvhx"]
@@ -6,20 +6,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_n3e2n"]
 radius = 13.038404
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7p4co"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
-[node name="crow" type="Area2D"]
+[node name="crow" type="Area2D" unique_id=1429517873]
 script = ExtResource("1_asodn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1953548500]
 scale = Vector2(0.21874997, 0.21874997)
 texture = ExtResource("2_rnvhx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1233460145]
 shape = SubResource("CircleShape2D_n3e2n")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_7p4co")

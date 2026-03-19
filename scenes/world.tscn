@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://7dutjmu04kaf"]
 
 [ext_resource type="Script" uid="uid://ngw83fbvssq0" path="res://scripts/world.gd" id="1_rwgxs"]
-[ext_resource type="PackedScene" uid="uid://bjfo40wnlowit" path="res://scenes/player_spawner.tscn" id="2_rwgxs"]
+[ext_resource type="Script" uid="uid://7seyy3ygnmdr" path="res://scripts/Network/player_spawner.gd" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://kjbg1ntvohkj" path="res://scripts/Network/create_skills.gd" id="3_4wyf3"]
 
 [node name="World" type="Node2D" unique_id=132408195]
 script = ExtResource("1_rwgxs")
 
-[node name="PlayerSpawner" parent="." unique_id=1375499521 instance=ExtResource("2_rwgxs")]
+[node name="PlayerSpawner" type="Node2D" parent="." unique_id=1274050710]
+script = ExtResource("2_4wyf3")
 
-[node name="SkillSpawner" type="Node" parent="." unique_id=2083841749]
+[node name="SkillSpawner" type="Node2D" parent="." unique_id=1554107033]
 script = ExtResource("3_4wyf3")

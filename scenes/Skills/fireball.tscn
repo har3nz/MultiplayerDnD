@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://74svy2kbi2ld"]
+[gd_scene format=3 uid="uid://74svy2kbi2ld"]
 
 [ext_resource type="Script" uid="uid://drkegiorybt6e" path="res://scripts/Skills/fireball.gd" id="1_1gl40"]
 [ext_resource type="Texture2D" uid="uid://bnm5f4aj0owqx" path="res://icon.svg" id="1_3s14c"]
@@ -6,20 +6,19 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_cb14k"]
 radius = 34.0147
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1gl40"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
-[node name="Area2D" type="Area2D"]
+[node name="Area2D" type="Area2D" unique_id=1473565526]
 script = ExtResource("1_1gl40")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1934486187]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_3s14c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=837336579]
 shape = SubResource("CircleShape2D_cb14k")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_1gl40")
+[node name="Timer" type="Timer" parent="." unique_id=1611143235]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 var is_authority: bool:
 	get: return !NetworkHandler.is_server && owner_id == ClientNetworkGlobals.id
-
 var owner_id: int #Is defined in player_spawner.gd
 
 func _enter_tree() -> void:
@@ -26,18 +25,24 @@ var flipped: bool = false
 
 var projectile_counter: int = 0
 
+enum PROJECTILES{
+	FIREBALL,
+	MINI_MISSILE,
+	CROW
+}
+
 func spawn_fireball() -> void:
 	var m_pos = get_viewport().get_mouse_position()
-	var fdir = m_pos - self.position
+	var fdir = (m_pos - self.position).normalized()
 	var angle = atan2(m_pos.y - self.position.y, m_pos.x - self.position.x)
-	SpawnProjectile.create(owner_id, projectile_counter, 0, self.position, fdir).send(NetworkHandler.server_peer)
+	SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.FIREBALL, self.position, fdir).send(NetworkHandler.server_peer)
 	projectile_counter += 1
-	
+
 
 func spawn_mini_missile() -> void:
 	var m_pos = get_viewport().get_mouse_position()
-	var mdir = m_pos - self.position
-	SpawnProjectile.create(owner_id, 1, projectile_counter, self.position, mdir).send(NetworkHandler.server_peer)
+	var mdir = (m_pos - self.position).normalized()
+	SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, self.position, mdir).send(NetworkHandler.server_peer)
 	projectile_counter += 1
 
 
@@ -64,11 +69,11 @@ func _physics_process(_delta) -> void:
 	if Input.is_action_just_released("fire"):
 		mouse_down = false
 		var m_pos = get_viewport().get_mouse_position()
-		mini_missile.update_mouse(m_pos, mouse_down)
+		MousePosition.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, m_pos, 0).send(NetworkHandler.server_peer)
 
 	if mouse_down and mini_missile:
 		var m_pos = get_viewport().get_mouse_position()
-		mini_missile.update_mouse(m_pos, mouse_down)
+		MousePosition.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, m_pos, 1).send(NetworkHandler.server_peer)
 
 
 	move_and_slide()

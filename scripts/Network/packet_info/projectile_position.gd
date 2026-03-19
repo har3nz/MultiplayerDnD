@@ -41,3 +41,6 @@ func decode(data: PackedByteArray) -> void:
 	projectile_type = data.decode_u8(3)
 	position = Vector2(data.decode_float(4), data.decode_float(8))
 	direction = Vector2(data.decode_float(12), data.decode_float(16))
+
+func _to_string() -> String:
+	return "owner_id: %s, projectile_id: %s, projectile_type: %s, position: %s, direction %s" % [owner_id, projectile_id, projectile_type, position, direction]

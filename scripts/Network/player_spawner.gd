@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 
 @export var wizard = preload("res://scenes/Characters/wizard.tscn")

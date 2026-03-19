@@ -1,5 +1,8 @@
 extends Area2D
 
+var is_authority: bool:
+	get: return !NetworkHandler.is_server && owner_id == ClientNetworkGlobals.id
+
 var amplitude = 200
 var speed = 700
 var direction = Vector2.ZERO
@@ -10,25 +13,39 @@ var m_pos = Vector2.ZERO
 var prev_m_pos = Vector2.ZERO
 var mouse_velocity = Vector2.ZERO
 
-var projectile_id: int
-
 var circling: bool = false
 var radius: int = 30
 var angle: float
 
 var target
 
-func _enter_tree() -> void:
-	#ClientNetworkGlobals.handle_projectile_position.connect()
-	pass
+var owner_id
+var projectile_id
+var projectile_type
 
-func update_mouse(_m_pos, is_down) -> void:
+func _enter_tree() -> void:
+	ServerNetworkGlobals.handle_projectile_position.connect(server_handle_projectile_position)
+	ClientNetworkGlobals.handle_projectile_position.connect(client_handle_projectile_position)
+
+	ClientNetworkGlobals.handle_mouse_position.connect(update_mouse)
+	ServerNetworkGlobals.handle_mouse_position.connect(update_mouse)
+
+func _exit_tree() -> void:
+	ServerNetworkGlobals.handle_projectile_position.disconnect(server_handle_projectile_position)
+	ClientNetworkGlobals.handle_projectile_position.disconnect(client_handle_projectile_position)
+
+	ClientNetworkGlobals.handle_mouse_position.disconnect(update_mouse)
+	ServerNetworkGlobals.handle_mouse_position.disconnect(update_mouse)
+
+
+
+func update_mouse(mouse_position: MousePosition) -> void:
 	prev_m_pos = m_pos
-	m_pos = _m_pos
+	m_pos = mouse_position.position
 	
 	mouse_velocity = (m_pos - prev_m_pos) / get_process_delta_time()
 	
-	if is_down:
+	if mouse_position.is_down == 1:
 		direction = (m_pos - position).normalized()
 	else:
 		if mouse_velocity.length() > 0:
@@ -40,10 +57,11 @@ func set_dir(fdir: Vector2):
 	direction = fdir.normalized()
 
 
-func _process(delta):
+func _physics_process(delta: float) -> void:
+	if !is_authority: return
+
 	time_passed += delta
 	distance = position.distance_to(m_pos)
-	
 
 	if distance < 15:
 		circling = true
@@ -57,6 +75,9 @@ func _process(delta):
 		var perp = Vector2(-direction.y, direction.x)
 		position += perp * sin(time_passed * 20) * amplitude * delta
 
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, position, direction).send(NetworkHandler.server_peer)
+
+
 
 func circular_motion(delta) -> void:
 	angle += delta * 4
@@ -64,3 +85,25 @@ func circular_motion(delta) -> void:
 	var effective_radius = radius + wobble
 	position.x = m_pos.x + effective_radius * cos(angle)
 	position.y = m_pos.y + effective_radius * sin(angle)
+
+
+func server_handle_projectile_position(peer_id: int, projectile_position: ProjectilePosition) -> void:
+	if owner_id != peer_id: return
+
+	if projectile_position.projectile_id != projectile_id: return
+	
+	global_position = projectile_position.position
+
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position, direction).broadcast(NetworkHandler.connection)
+
+
+func client_handle_projectile_position(projectile_position: ProjectilePosition) -> void:
+	if projectile_position.owner_id != owner_id: return
+
+	if projectile_position.projectile_id != projectile_id: return
+
+	global_position = projectile_position.position
+
+
+func _on_timer_timeout() -> void:
+	self.queue_free()
