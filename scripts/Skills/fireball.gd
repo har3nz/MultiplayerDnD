@@ -23,15 +23,24 @@ func _physics_process(delta):
 func set_dir(fdir: Vector2):
 	direction = fdir.normalized()
 
-
 func server_handle_projectile_position(peer_id: int, projectile_position: ProjectilePosition) -> void:
 	if owner_id != peer_id: return
-	global_position = projectile_position.position
 
-	ProjectilePosition.create(owner_id, projectile_id, projectile_type, position, direction).broadcast(NetworkHandler.connection)
+	if projectile_position.projectile_id != projectile_id: return
+	
+	global_position = projectile_position.position
+	print("server global pos : ", global_position)
+
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position, direction).broadcast(NetworkHandler.connection)
+
 
 func client_handle_projectile_position(projectile_position: ProjectilePosition) -> void:
-	if projectile_id != projectile_position.projectile_id: return
+	# when the owner id is not the one updating this projectile, also ignore it.
+	if projectile_position.owner_id != owner_id: return
 
+	# and when the projectile_id doesn't match, also ignore it.
+	if projectile_position.projectile_id != projectile_id: return
+
+	# now we update the projectile position
 	global_position = projectile_position.position
-	
+	print(projectile_position.position)

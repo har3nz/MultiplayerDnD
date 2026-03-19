@@ -38,6 +38,8 @@ func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 			spawn_projectile.broadcast(NetworkHandler.connection)
 
 		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
-			handle_projectile_position.emit(peer_id, ProjectilePosition.create_from_data(data))
+			var proj_pos = ProjectilePosition.create_from_data(data)
+			handle_projectile_position.emit(peer_id, proj_pos)
+			proj_pos.broadcast(NetworkHandler.connection)
 		_:
 			push_error("Packet type with index ", data [0], " unhandled!")

@@ -38,13 +38,18 @@ func on_client_packet(data: PackedByteArray) -> void:
 			var spawn_player_packet := SpawnPlayer.create_from_data(data)
 			for peer_id in spawn_player_packet.peer_classes:
 				PlayerSpawner.spawn_player(peer_id, spawn_player_packet.peer_classes[peer_id])
+
 		PacketInfo.PACKET_TYPE.CLASS_SELECT:
 			selected_class = ClassSelect.create_from_data(data)
+
 		PacketInfo.PACKET_TYPE.SPAWN_PROJECTILE:
 			var spawn_projectile = SpawnProjectile.create_from_data(data)
 			CreateSkills.spawn_projectile(id, spawn_projectile.projectile_type, spawn_projectile.projectile_id)
+		
 		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
+			print("client network global projectile pos")
 			handle_projectile_position.emit(ProjectilePosition.create_from_data(data))
+		
 		_:
 			push_error("Packet type with index ", data[0], " unhandled")
 

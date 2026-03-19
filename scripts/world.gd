@@ -13,4 +13,3 @@ func _ready():
 	for peer_id in ServerNetworkGlobals.peer_ids:
 		var selected_class: int = ServerNetworkGlobals.peer_classes[peer_id]
 		PlayerSpawner.spawn_player(peer_id, selected_class)
-
