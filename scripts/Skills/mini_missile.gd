@@ -4,7 +4,7 @@ var is_authority: bool:
 	get: return !NetworkHandler.is_server && owner_id == ClientNetworkGlobals.id
 
 var amplitude = 200
-var speed = 700
+var speed = 600
 var direction = Vector2.ZERO
 var time_passed = 0.0
 
@@ -18,6 +18,9 @@ var radius: int = 30
 var angle: float
 
 var target
+
+var mouse_down
+var free_bird = false
 
 var owner_id
 var projectile_id
@@ -41,6 +44,17 @@ func _physics_process(delta: float) -> void:
 		circling = true
 	elif distance > 42 and circling:
 		circling = false
+	
+	if Input.is_action_pressed("fire"):
+		mouse_down = true
+		
+	if Input.is_action_just_released("fire"):
+		free_bird = true
+		mouse_down = false
+		$Timer.start()
+
+	if mouse_down and !free_bird:
+		direction = direction.move_toward(global_position.direction_to(get_global_mouse_position()), 0.1)
 
 	if circling:
 		circular_motion(delta)
@@ -49,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		var perp = Vector2(-direction.y, direction.x)
 		position += perp * sin(time_passed * 20) * amplitude * delta
 
-	ProjectilePosition.create(owner_id, projectile_id, projectile_type, position, direction).send(NetworkHandler.server_peer)
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position).send(NetworkHandler.server_peer)
 
 
 
@@ -67,20 +81,18 @@ func server_handle_projectile_position(peer_id: int, projectile_position: Projec
 	if projectile_position.projectile_id != projectile_id: return
 	
 	global_position = projectile_position.position
-	direction = projectile_position.direction
-	print("server:", direction)
 
-	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position, direction).broadcast(NetworkHandler.connection)
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position).broadcast(NetworkHandler.connection)
 
 
 func client_handle_projectile_position(projectile_position: ProjectilePosition) -> void:
+	if projectile_position.owner_id == ClientNetworkGlobals.id: return
+
 	if projectile_position.owner_id != owner_id: return
 
 	if projectile_position.projectile_id != projectile_id: return
 
 	global_position = projectile_position.position
-	direction = projectile_position.direction
-	print("client:", direction)
 
 
 func _on_timer_timeout() -> void:

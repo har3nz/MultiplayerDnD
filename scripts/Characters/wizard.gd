@@ -8,13 +8,9 @@ func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_position.connect(server_handle_player_position)
 	ClientNetworkGlobals.handle_player_position.connect(client_handle_player_position)
 
-	ClientNetworkGlobals.set_projectile_position.connect(set_projectile_pos)
-
 func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_player_position.disconnect(server_handle_player_position)
 	ClientNetworkGlobals.handle_player_position.disconnect(client_handle_player_position)
-
-	ClientNetworkGlobals.set_projectile_position.disconnect(set_projectile_pos)
 
 const SPEED: int = 220
 
@@ -47,29 +43,7 @@ func spawn_mini_missile() -> void:
 	SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, self.position, mdir).send(NetworkHandler.server_peer)
 	projectile_counter += 1
 
-var prev_mouse_pos = Vector2.ZERO
 
-var direction = Vector2.ZERO
-
-func calculate_direction(mouse_pos: Vector2, projectile_pos: Vector2, is_down: bool):
-	
-	var mouse_velocity = (mouse_pos - prev_mouse_pos) / get_process_delta_time()
-	
-	if is_down:
-		direction = mouse_pos - projectile_pos
-	else:
-		if mouse_velocity.length() > 0:
-			direction = mouse_velocity
-
-	prev_mouse_pos = mouse_pos
-	return direction.normalized()
-
-var projectile_pos = Vector2.ZERO
-
-func set_projectile_pos(pos: Vector2) -> void:
-	projectile_pos = pos
-
-var m_pos: Vector2
 func _physics_process(_delta) -> void:
 	if !is_authority: return
 
@@ -84,22 +58,10 @@ func _physics_process(_delta) -> void:
 	if Input.is_action_just_pressed("skill1"):
 		spawn_fireball()
 
-	if mouse_down:
-		m_pos = get_global_mouse_position()
-		direction = calculate_direction(m_pos, projectile_pos, mouse_down)
-		var ProjectilePosition = ProjectilePosition.create(owner_id, projectile_counter - 1, PROJECTILES.MINI_MISSILE, projectile_pos, direction)
-		ProjectilePosition.send(NetworkHandler.server_peer)
-
 	# Mini missile logic
 	if Input.is_action_just_pressed("fire"):
 		spawn_mini_missile()
-		mouse_down = true
 		
-	if Input.is_action_just_released("fire"):
-		mouse_down = false
-		
-		
-
 	move_and_slide()
 
 	PlayerPosition.create(owner_id, global_position).send(NetworkHandler.server_peer)

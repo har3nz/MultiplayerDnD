@@ -7,10 +7,6 @@ signal handle_player_position(player_position: PlayerPosition)
 
 signal handle_projectile_position(projectile_position: ProjectilePosition)
 
-signal handle_mouse_position(mouse_position: MousePosition)
-
-signal set_projectile_position(position: Vector2)
-
 signal upd_list(list: Array[int])
 
 var id: int = -1
@@ -52,12 +48,8 @@ func on_client_packet(data: PackedByteArray) -> void:
 		
 		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
 			var proj_pos = ProjectilePosition.create_from_data(data)
-			set_projectile_position.emit(proj_pos.position)
 			handle_projectile_position.emit(proj_pos)
 		
-		PacketInfo.PACKET_TYPE.MOUSE_POSITION:
-			handle_mouse_position.emit(MousePosition.create_from_data(data))
-
 		_:
 			push_error("Packet type with index ", data[0], " unhandled")
 

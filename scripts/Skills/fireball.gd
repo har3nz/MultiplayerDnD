@@ -23,7 +23,7 @@ func _physics_process(delta):
 	if !is_authority: return
 	position += direction * speed * delta
 
-	ProjectilePosition.create(owner_id, projectile_id, projectile_type, position, direction).send(NetworkHandler.server_peer)
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, position).send(NetworkHandler.server_peer)
 
 func set_dir(fdir: Vector2):
 	direction = fdir.normalized()
@@ -35,10 +35,12 @@ func server_handle_projectile_position(peer_id: int, projectile_position: Projec
 	
 	global_position = projectile_position.position
 
-	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position, direction).broadcast(NetworkHandler.connection)
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position).broadcast(NetworkHandler.connection)
 
 
 func client_handle_projectile_position(projectile_position: ProjectilePosition) -> void:
+	if projectile_position.owner_id == ClientNetworkGlobals.id: return
+
 	if projectile_position.owner_id != owner_id: return
 
 	if projectile_position.projectile_id != projectile_id: return

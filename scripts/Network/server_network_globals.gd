@@ -2,7 +2,6 @@ extends Node
 
 signal handle_player_position(peer_id: int, player_position: PlayerPosition)
 signal handle_projectile_position(peer_id: int, projectile_position: ProjectilePosition)
-signal handle_mouse_position(mouse_position: MousePosition)
 
 var peer_ids: Array[int]
 var peer_classes: Dictionary = {}
@@ -42,11 +41,6 @@ func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
 			var proj_pos = ProjectilePosition.create_from_data(data)
 			handle_projectile_position.emit(peer_id, proj_pos)
-
-		PacketInfo.PACKET_TYPE.MOUSE_POSITION:
-			var mouse_pos = MousePosition.create_from_data(data)
-			mouse_pos.broadcast(NetworkHandler.connection)
-			handle_mouse_position.emit(mouse_pos)
 			
 		_:
 			push_error("Packet type with index ", data [0], " unhandled!")
