@@ -24,8 +24,12 @@ func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_player_position.disconnect(server_handle_player_position)
 	ClientNetworkGlobals.handle_player_position.disconnect(client_handle_player_position)
 
-
-
+var projectile_counter = 0
+enum PROJECTILES{
+	FIREBALL,
+	MINI_MISSILE,
+	CROW
+}
 
 func _physics_process(_delta) -> void:
 	if !is_authority: return
@@ -39,26 +43,12 @@ func _physics_process(_delta) -> void:
 		flipped = true
 
 	if Input.is_action_just_pressed("skill1"):
-		crow = crow_scene.instantiate()
-		crow.position = self.position
-		m_pos = get_viewport().get_mouse_position()
-		var mdir = m_pos - self.position
-		crow.set_dir(mdir)
-		get_parent().add_child(crow)
-		mouse_down = true
-	
-	if Input.is_action_just_released("skill1"):
-		mouse_down = false
-		m_pos = get_viewport().get_mouse_position()
-		crow.update_mouse(m_pos, mouse_down)
-
-	if mouse_down and crow:
-		m_pos = get_viewport().get_mouse_position()
-		crow.update_mouse(m_pos, mouse_down)
-
+		SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.CROW, self.global_position).send(NetworkHandler.server_peer)
 
 	if Input.is_action_just_pressed("fire"):
-		print()
+		pass
+
+	projectile_counter += 1
 
 	move_and_slide()
 

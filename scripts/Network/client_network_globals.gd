@@ -44,7 +44,7 @@ func on_client_packet(data: PackedByteArray) -> void:
 
 		PacketInfo.PACKET_TYPE.SPAWN_PROJECTILE:
 			var spawn_projectile = SpawnProjectile.create_from_data(data)
-			CreateSkills.spawn_projectile(id, spawn_projectile.projectile_type, spawn_projectile.projectile_id, spawn_projectile.position, spawn_projectile.direction)
+			CreateSkills.spawn_projectile(spawn_projectile.owner_id, spawn_projectile.projectile_type, spawn_projectile.projectile_id, spawn_projectile.position)
 		
 		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
 			var proj_pos = ProjectilePosition.create_from_data(data)

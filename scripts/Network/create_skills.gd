@@ -10,7 +10,7 @@ enum PROJECTILES{
 	CROW
 }
 
-func spawn_projectile(projectile_owner: int, projectile_type: int, projectile_id: int, position: Vector2, direction: Vector2) -> void:
+func spawn_projectile(projectile_owner: int, projectile_type: int, projectile_id: int, position: Vector2) -> void:
 	var projectile
 	match projectile_type:
 		PROJECTILES.FIREBALL:
@@ -25,5 +25,4 @@ func spawn_projectile(projectile_owner: int, projectile_type: int, projectile_id
 	projectile.projectile_type = projectile_type
 	projectile.name = str(projectile_owner) + "_" + str(projectile_type) + "_" + str(projectile_id)
 	projectile.global_position = position
-	projectile.direction = direction
 	call_deferred("add_child", projectile)

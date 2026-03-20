@@ -25,9 +25,6 @@ func _physics_process(delta):
 
 	ProjectilePosition.create(owner_id, projectile_id, projectile_type, position).send(NetworkHandler.server_peer)
 
-func set_dir(fdir: Vector2):
-	direction = fdir.normalized()
-
 func server_handle_projectile_position(peer_id: int, projectile_position: ProjectilePosition) -> void:
 	if owner_id != peer_id: return
 

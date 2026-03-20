@@ -17,8 +17,6 @@ const SPEED: int = 220
 var max_health: float = 50
 var health: float = max_health
 
-var mouse_down: bool = false
-
 var flipped: bool = false
 
 var projectile_counter: int = 0
@@ -28,20 +26,6 @@ enum PROJECTILES{
 	MINI_MISSILE,
 	CROW
 }
-
-func spawn_fireball() -> void:
-	var m_pos = get_viewport().get_mouse_position()
-	var fdir = (m_pos - self.position).normalized()
-	var angle = atan2(m_pos.y - self.position.y, m_pos.x - self.position.x)
-	SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.FIREBALL, self.position, fdir).send(NetworkHandler.server_peer)
-	projectile_counter += 1
-
-
-func spawn_mini_missile() -> void:
-	var m_pos = get_viewport().get_mouse_position()
-	var mdir = (m_pos - self.position).normalized()
-	SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, self.position, mdir).send(NetworkHandler.server_peer)
-	projectile_counter += 1
 
 
 func _physics_process(_delta) -> void:
@@ -56,12 +40,14 @@ func _physics_process(_delta) -> void:
 
 	# Fireball
 	if Input.is_action_just_pressed("skill1"):
-		spawn_fireball()
-
+		SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.FIREBALL, self.position).send(NetworkHandler.server_peer)
+	
 	# Mini missile logic
 	if Input.is_action_just_pressed("fire"):
-		spawn_mini_missile()
-		
+		SpawnProjectile.create(owner_id, projectile_counter, PROJECTILES.MINI_MISSILE, self.position).send(NetworkHandler.server_peer)
+	
+	projectile_counter += 1
+
 	move_and_slide()
 
 	PlayerPosition.create(owner_id, global_position).send(NetworkHandler.server_peer)
