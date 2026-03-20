@@ -9,6 +9,8 @@ signal handle_projectile_position(projectile_position: ProjectilePosition)
 
 signal handle_mouse_position(mouse_position: MousePosition)
 
+signal set_projectile_position(position: Vector2)
+
 signal upd_list(list: Array[int])
 
 var id: int = -1
@@ -49,7 +51,9 @@ func on_client_packet(data: PackedByteArray) -> void:
 			CreateSkills.spawn_projectile(id, spawn_projectile.projectile_type, spawn_projectile.projectile_id, spawn_projectile.position, spawn_projectile.direction)
 		
 		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
-			handle_projectile_position.emit(ProjectilePosition.create_from_data(data))
+			var proj_pos = ProjectilePosition.create_from_data(data)
+			set_projectile_position.emit(proj_pos.position)
+			handle_projectile_position.emit(proj_pos)
 		
 		PacketInfo.PACKET_TYPE.MOUSE_POSITION:
 			handle_mouse_position.emit(MousePosition.create_from_data(data))

@@ -31,10 +31,6 @@ func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_projectile_position.disconnect(server_handle_projectile_position)
 	ClientNetworkGlobals.handle_projectile_position.disconnect(client_handle_projectile_position)
 
-
-
-
-
 func _physics_process(delta: float) -> void:
 	if !is_authority: return
 
@@ -71,6 +67,8 @@ func server_handle_projectile_position(peer_id: int, projectile_position: Projec
 	if projectile_position.projectile_id != projectile_id: return
 	
 	global_position = projectile_position.position
+	direction = projectile_position.direction
+	print("server:", direction)
 
 	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position, direction).broadcast(NetworkHandler.connection)
 
@@ -81,6 +79,8 @@ func client_handle_projectile_position(projectile_position: ProjectilePosition) 
 	if projectile_position.projectile_id != projectile_id: return
 
 	global_position = projectile_position.position
+	direction = projectile_position.direction
+	print("client:", direction)
 
 
 func _on_timer_timeout() -> void:

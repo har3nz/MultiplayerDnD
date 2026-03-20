@@ -8,17 +8,19 @@ func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_position.connect(server_handle_player_position)
 	ClientNetworkGlobals.handle_player_position.connect(client_handle_player_position)
 
+	ClientNetworkGlobals.set_projectile_position.connect(set_projectile_pos)
+
 func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_player_position.disconnect(server_handle_player_position)
 	ClientNetworkGlobals.handle_player_position.disconnect(client_handle_player_position)
+
+	ClientNetworkGlobals.set_projectile_position.disconnect(set_projectile_pos)
 
 const SPEED: int = 220
 
 var max_health: float = 50
 var health: float = max_health
 
-var mini_missile_scene = preload("res://scenes/Skills/mini_missile.tscn")
-var mini_missile
 var mouse_down: bool = false
 
 var flipped: bool = false
@@ -62,6 +64,12 @@ func calculate_direction(mouse_pos: Vector2, projectile_pos: Vector2, is_down: b
 	prev_mouse_pos = mouse_pos
 	return direction.normalized()
 
+var projectile_pos = Vector2.ZERO
+
+func set_projectile_pos(pos: Vector2) -> void:
+	projectile_pos = pos
+
+var m_pos: Vector2
 func _physics_process(_delta) -> void:
 	if !is_authority: return
 
@@ -76,23 +84,20 @@ func _physics_process(_delta) -> void:
 	if Input.is_action_just_pressed("skill1"):
 		spawn_fireball()
 
+	if mouse_down:
+		m_pos = get_global_mouse_position()
+		direction = calculate_direction(m_pos, projectile_pos, mouse_down)
+		var ProjectilePosition = ProjectilePosition.create(owner_id, projectile_counter - 1, PROJECTILES.MINI_MISSILE, projectile_pos, direction)
+		ProjectilePosition.send(NetworkHandler.server_peer)
 
 	# Mini missile logic
 	if Input.is_action_just_pressed("fire"):
 		spawn_mini_missile()
 		mouse_down = true
-		var ProjectilePosition = ProjectilePosition.create(owner_id, projectile_counter - 1, PROJECTILES.MINI_MISSILE, global_position, direction)
-		ProjectilePosition.send(NetworkHandler.server_peer)
-	
+		
 	if Input.is_action_just_released("fire"):
 		mouse_down = false
-		var m_pos = get_viewport().get_mouse_position()
-		var ProjectilePosition = ProjectilePosition.create(owner_id, projectile_counter - 1, PROJECTILES.MINI_MISSILE, global_position, direction)
-		ProjectilePosition.send(NetworkHandler.server_peer)
-
 		
-	if mouse_down and mini_missile:
-		var m_pos = get_viewport().get_parent().get_mouse_position()
 		
 
 	move_and_slide()
