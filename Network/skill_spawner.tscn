@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://jdk40yyxdje4"]
+
+[ext_resource type="Script" uid="uid://kjbg1ntvohkj" path="res://Network/skill_spawner.gd" id="1_m85ej"]
+
+[node name="SkillSpawner" type="Node2D" unique_id=2101777421]
+script = ExtResource("1_m85ej")

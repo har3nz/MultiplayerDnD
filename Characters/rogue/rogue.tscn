@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dm1l8ahp4tijp"]
+
+[ext_resource type="Script" uid="uid://cl4snwt07s225" path="res://Characters/rogue/rogue.gd" id="1_4t2cg"]
+[ext_resource type="Texture2D" uid="uid://jruh8obht5kb" path="res://Characters/rogue/Assassin front.png" id="2_agpe5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b3c45"]
+height = 50.0
+
+[node name="rogue" type="CharacterBody2D" unique_id=1306083029]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_4t2cg")
+radius = null
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1086782280]
+texture_filter = 1
+position = Vector2(-1, -6)
+scale = Vector2(2, 2)
+texture = ExtResource("2_agpe5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=283959741]
+shape = SubResource("CapsuleShape2D_b3c45")
+
+[node name="Timer" type="Timer" parent="." unique_id=984477581]
+wait_time = 2.0
+
+[node name="Cooldown" type="Timer" parent="." unique_id=1925692040]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

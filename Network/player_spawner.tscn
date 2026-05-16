@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bjfo40wnlowit"]
+
+[ext_resource type="Script" uid="uid://7seyy3ygnmdr" path="res://Network/player_spawner.gd" id="1_r6vql"]
+
+[node name="PlayerSpawner" type="Node2D" unique_id=483242197]
+script = ExtResource("1_r6vql")
+wizard = null
+bard = null
+druid = null
+barbarian = null
+rogue = null

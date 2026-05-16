@@ -1,0 +1,15 @@
+class_name Enums
+
+enum SKILLS{
+	FIREBALL,
+	MINI_MISSILE,
+	CROW
+}
+
+enum CLASSES{
+	WIZARD,
+	DRUID,
+	BARD,
+	ROGUE,
+	BARBARIAN,
+}
