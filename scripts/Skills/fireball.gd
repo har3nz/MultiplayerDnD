@@ -3,8 +3,7 @@ extends Area2D
 var is_authority: bool:
 	get: return !NetworkHandler.is_server && owner_id == ClientNetworkGlobals.id
 
-
-var direction = Vector2.ZERO
+var direction
 var speed = 500
 
 var owner_id
@@ -12,6 +11,7 @@ var projectile_id
 var projectile_type
 
 func _enter_tree() -> void:
+	
 	ServerNetworkGlobals.handle_projectile_position.connect(server_handle_projectile_position)
 	ClientNetworkGlobals.handle_projectile_position.connect(client_handle_projectile_position)
 
@@ -21,9 +21,9 @@ func _exit_tree() -> void:
 
 func _physics_process(delta):
 	if !is_authority: return
-	position += direction * speed * delta
+	global_position += direction.normalized() * speed * delta
 
-	ProjectilePosition.create(owner_id, projectile_id, projectile_type, position).send(NetworkHandler.server_peer)
+	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position).send(NetworkHandler.server_peer)
 
 func server_handle_projectile_position(peer_id: int, projectile_position: ProjectilePosition) -> void:
 	if owner_id != peer_id: return

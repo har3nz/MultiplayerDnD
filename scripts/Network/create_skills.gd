@@ -15,6 +15,7 @@ func spawn_projectile(projectile_owner: int, projectile_type: int, projectile_id
 	match projectile_type:
 		PROJECTILES.FIREBALL:
 			projectile = fireball.instantiate()
+			projectile.direction = position.direction_to(get_global_mouse_position())
 		PROJECTILES.MINI_MISSILE:
 			projectile = mini_missile.instantiate()
 		PROJECTILES.CROW:

@@ -9,13 +9,6 @@ var direction = Vector2.ZERO
 var time_passed = 0.0
 
 var distance
-var m_pos = Vector2.ZERO
-var prev_m_pos = Vector2.ZERO
-var mouse_velocity = Vector2.ZERO
-
-var circling: bool = false
-var radius: int = 30
-var angle: float
 
 var target
 
@@ -37,14 +30,6 @@ func _exit_tree() -> void:
 func _physics_process(delta: float) -> void:
 	if !is_authority: return
 
-	time_passed += delta
-	distance = position.distance_to(m_pos)
-
-	if distance < 15:
-		circling = true
-	elif distance > 42 and circling:
-		circling = false
-	
 	if Input.is_action_pressed("fire"):
 		mouse_down = true
 		
@@ -56,23 +41,13 @@ func _physics_process(delta: float) -> void:
 	if mouse_down and !free_bird:
 		direction = direction.move_toward(global_position.direction_to(get_global_mouse_position()), 0.1)
 
-	if circling:
-		circular_motion(delta)
-	else:
-		position += direction * speed * delta
-		var perp = Vector2(-direction.y, direction.x)
-		position += perp * sin(time_passed * 20) * amplitude * delta
+	position += direction * speed * delta
+	var perp = Vector2(-direction.y, direction.x)
+	position += perp * sin(time_passed * 25) * amplitude * delta
 
 	ProjectilePosition.create(owner_id, projectile_id, projectile_type, global_position).send(NetworkHandler.server_peer)
 
 
-
-func circular_motion(delta) -> void:
-	angle += delta * 4
-	var wobble = sin(time_passed * 20) * 10
-	var effective_radius = radius + wobble
-	position.x = m_pos.x + effective_radius * cos(angle)
-	position.y = m_pos.y + effective_radius * sin(angle)
 
 
 func server_handle_projectile_position(peer_id: int, projectile_position: ProjectilePosition) -> void:
