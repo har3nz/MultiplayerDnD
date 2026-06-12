@@ -24,32 +24,32 @@ func on_client_packet(data: PackedByteArray) -> void:
 	
 	var packet_type: int = data.decode_u8(0)
 	match packet_type:
-		PacketInfo.PACKET_TYPE.ID_ASSIGNMENT:
+		EnumHandler.PACKET_TYPE.ID_ASSIGNMENT:
 			manage_ids(IDAssignment.create_from_data(data))
 
-		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
+		EnumHandler.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_position.emit(PlayerPosition.create_from_data(data))
 
-		PacketInfo.PACKET_TYPE.PEER_LIST:
+		EnumHandler.PACKET_TYPE.PEER_LIST:
 			packet = PeerList.create_from_data(data)
 			upd_list.emit(packet.peer_ids)
 
-		PacketInfo.PACKET_TYPE.START_GAME:
-			get_tree().change_scene_to_file("res://scenes/world.tscn")
+		EnumHandler.PACKET_TYPE.START_GAME:
+			get_tree().change_scene_to_file("res://game/world.tscn")
 
-		PacketInfo.PACKET_TYPE.SPAWN_PLAYER:
+		EnumHandler.PACKET_TYPE.SPAWN_PLAYER:
 			var spawn_player_packet := SpawnPlayer.create_from_data(data)
 			for peer_id in spawn_player_packet.peer_classes:
 				spawn_player.emit(peer_id, spawn_player_packet.peer_classes[peer_id])
 
-		PacketInfo.PACKET_TYPE.CLASS_SELECT:
+		EnumHandler.PACKET_TYPE.CLASS_SELECT:
 			selected_class = ClassSelect.create_from_data(data)
 
-		PacketInfo.PACKET_TYPE.SPAWN_PROJECTILE:
+		EnumHandler.PACKET_TYPE.SPAWN_PROJECTILE:
 			var spawn_projectile = SpawnProjectile.create_from_data(data)
 			spawn_skill.emit(spawn_projectile.owner_id, spawn_projectile.projectile_type, spawn_projectile.projectile_id, spawn_projectile.position)
 		
-		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
+		EnumHandler.PACKET_TYPE.PROJECTILE_POSITION:
 			var proj_pos = ProjectilePosition.create_from_data(data)
 			handle_projectile_position.emit(proj_pos)
 		

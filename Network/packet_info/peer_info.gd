@@ -2,11 +2,11 @@ class_name PeerList extends PacketInfo
 
 var peer_ids: Array[int] = []
 
-static func create(peer_ids: Array[int]) -> PeerList:
+static func create(_peer_ids: Array[int]) -> PeerList:
 	var info := PeerList.new()
-	info.packet_type = PACKET_TYPE.PEER_LIST
+	info.packet_type = EnumHandler.PACKET_TYPE.PEER_LIST
 	info.flag = ENetPacketPeer.FLAG_RELIABLE
-	info.peer_ids = peer_ids
+	info.peer_ids = _peer_ids
 	return info
 
 static func create_from_data(data: PackedByteArray) -> PeerList:

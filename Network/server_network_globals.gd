@@ -28,20 +28,25 @@ var selected_class: ClassSelect
 func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 	var packet_type: int = data.decode_u8(0)
 	match packet_type:
-		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
+		EnumHandler.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_position.emit(peer_id, PlayerPosition.create_from_data(data))
 
-		PacketInfo.PACKET_TYPE.CLASS_SELECT:
+		EnumHandler.PACKET_TYPE.CLASS_SELECT:
 			selected_class = ClassSelect.create_from_data(data)
 			selected_class.broadcast(NetworkHandler.connection)
 			peer_classes.set(data[1], data[2])
 		
-		PacketInfo.PACKET_TYPE.SPAWN_PROJECTILE:
+		EnumHandler.PACKET_TYPE.SPAWN_PLAYER:
+			for id in peer_ids:
+				var selected_class: int = peer_classes[id]
+				spawn_player.emit(id, selected_class)
+
+		EnumHandler.PACKET_TYPE.SPAWN_PROJECTILE:
 			var spawn_projectile = SpawnProjectile.create_from_data(data)
 			spawn_projectile.broadcast(NetworkHandler.connection)
 			spawn_skill.emit(spawn_projectile.owner_id, spawn_projectile.projectile_type, spawn_projectile.projectile_id, spawn_projectile.position)
 
-		PacketInfo.PACKET_TYPE.PROJECTILE_POSITION:
+		EnumHandler.PACKET_TYPE.PROJECTILE_POSITION:
 			var proj_pos = ProjectilePosition.create_from_data(data)
 			handle_projectile_position.emit(peer_id, proj_pos)
 			

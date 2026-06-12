@@ -2,11 +2,11 @@ class_name SpawnPlayer extends PacketInfo
 
 var peer_classes: Dictionary
 
-static func create(peer_classes: Dictionary) -> SpawnPlayer:
+static func create(_peer_classes: Dictionary) -> SpawnPlayer:
 	var info := SpawnPlayer.new()
-	info.packet_type = PACKET_TYPE.SPAWN_PLAYER
+	info.packet_type = EnumHandler.PACKET_TYPE.SPAWN_PLAYER
 	info.flag = ENetPacketPeer.FLAG_RELIABLE
-	info.peer_classes = peer_classes
+	info.peer_classes = _peer_classes
 	return info
 
 static func create_from_data(data: PackedByteArray) -> SpawnPlayer:

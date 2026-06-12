@@ -40,10 +40,9 @@ func _on_start_pressed() -> void:
 	if not is_authority:
 		return
 
-	var start_packet := StartGame.create()
-	start_packet.broadcast(NetworkHandler.connection)
+	StartGame.create().broadcast(NetworkHandler.connection)
 
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	get_tree().change_scene_to_file("res://game/world.tscn")
 
 func _on_wizard_pressed() -> void:
 	var peer_id = ClientNetworkGlobals.id

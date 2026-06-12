@@ -4,14 +4,14 @@ var owner_id: int
 var projectile_id: int
 var projectile_type: int
 var position: Vector2
-static func create(owner_id: int, projectile_id : int, projectile_type: int, position : Vector2) -> ProjectilePosition:
+static func create(_owner_id: int, _projectile_id : int, _projectile_type: int, _position : Vector2) -> ProjectilePosition:
 	var info := ProjectilePosition.new()
-	info.packet_type = PACKET_TYPE.PROJECTILE_POSITION
+	info.packet_type = EnumHandler.PACKET_TYPE.PROJECTILE_POSITION
 	info.flag = ENetPacketPeer.FLAG_UNSEQUENCED
-	info.owner_id = owner_id
-	info.projectile_id = projectile_id
-	info.projectile_type = projectile_type
-	info.position = position
+	info.owner_id = _owner_id
+	info.projectile_id = _projectile_id
+	info.projectile_type = _projectile_type
+	info.position = _position
 	return info
 
 static func create_from_data(data: PackedByteArray) -> ProjectilePosition:

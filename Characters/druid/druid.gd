@@ -8,7 +8,7 @@ var cur_speed = SPEED
 
 var mouse_down: bool
 
-var crow_scene = preload("res://scenes/Skills/crow.tscn")
+var crow_scene = preload("res://Characters/druid/crow.tscn")
 var crow
 
 var is_authority: bool:
@@ -67,7 +67,3 @@ func client_handle_player_position(player_position: PlayerPosition) -> void:
 
 	global_position = player_position.position
 	
-
-
-
-

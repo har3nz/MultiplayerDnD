@@ -1,17 +1,6 @@
 class_name PacketInfo
 
-enum PACKET_TYPE {
-	ID_ASSIGNMENT,
-	PLAYER_POSITION,
-	PEER_LIST,
-	START_GAME,
-	SPAWN_PLAYER,
-	PROJECTILE_POSITION,
-	SPAWN_PROJECTILE,
-	CLASS_SELECT,
-}
-
-var packet_type: PACKET_TYPE
+var packet_type: EnumHandler.PACKET_TYPE
 var flag: int
 
 func encode() -> PackedByteArray:

@@ -3,12 +3,12 @@ class_name ClassSelect extends PacketInfo
 var id: int
 var selected_class: int
 
-static func create(id: int, selected_class: int) -> ClassSelect:
+static func create(_id: int, _selected_class: int) -> ClassSelect:
 	var info: ClassSelect = ClassSelect.new()
-	info.packet_type = PACKET_TYPE.CLASS_SELECT
+	info.packet_type = EnumHandler.PACKET_TYPE.CLASS_SELECT
 	info.flag = ENetPacketPeer.FLAG_RELIABLE
-	info.id = id
-	info.selected_class = selected_class
+	info.id = _id
+	info.selected_class = _selected_class
 	return info
 
 static func create_from_data(data: PackedByteArray) -> ClassSelect:
